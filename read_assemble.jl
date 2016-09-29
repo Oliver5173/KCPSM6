@@ -32,24 +32,18 @@ function load_code(length_of_line::Int,code_arr)
 
   			k=findfirst(eachline[j:last], ',')
   			if k != 0
-  				temp2 = eachline[j:k-1]
+  				temp2 = strip(eachline[j:k-1])
   				j=k+1
 
-  				temp3=eachline[j:last]
+  				temp3=strip(eachline[j:last])
   				h=temp3[end-1:end]
   				if(h=="'d")
-      				p=c[1:end-2]
-      				p=parse(p)
-      				output_string=hex(p)
-
-    					elseif (h=="'b")
-      				p=c[1:end-2]
-      				p=string("0b",p)
-      				output_string=parse(p)
-      				output_string=string(output_string)
-      				output_string=parse(output_string)
-      				output_string=hex(output_string)
+				output_string=hex(parse(temp3[1:end-2]))
+						
+    				elseif (h=="'b")
+				output_string=hex(parse("0b"*temp3[1:end-2]))
     				end
+				
   				push!(instruction_arr,instruction(temp1, temp2,output_string))
   			else
   				push!(instruction_arr,instruction(temp1, temp2, ""))
@@ -67,24 +61,19 @@ function load_code(length_of_line::Int,code_arr)
 
   			k=findfirst(eachline[j:last], ',')
   			if k != 0
-  				temp2 = eachline[j:k-1]
+  				temp2 = strip(eachline[j:k-1])
   				j=k+1
 
-  				temp3=eachline[j:last]
+  				temp3=strip(eachline[j:last])
   				h=temp3[end-1:end]
+					
   				if(h=="'d")
-      				p=c[1:end-2]
-      				p=parse(p)
-      				output_string=hex(p)
-
-    					elseif (h=="'b")
-      				p=c[1:end-2]
-      				p=string("0b",p)
-      				output_string=parse(p)
-      				output_string=string(output_string)
-      				output_string=parse(output_string)
-      				output_string=hex(output_string)
+				output_string=hex(parse(temp3[1:end-2]))
+						
+    				elseif (h=="'b")
+				output_string=hex(parse("0b"*temp3[1:end-2]))
     				end
+				
   				push!(instruction_arr,instruction(temp1, temp2,output_string))
   			else
   				push!(instruction_arr,instruction(temp1, temp2, ""))
