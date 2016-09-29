@@ -10,7 +10,7 @@ type instruction
 	operand2
 end
 
-function load_code(length_of_line::Int)
+function load_code(length_of_line::Int,code_arr)
   label_arr = Array{label}(0)
   instruction_arr = Array{instruction}(0)
   for i = 1 : length_of_line
