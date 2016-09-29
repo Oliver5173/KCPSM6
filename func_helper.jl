@@ -1,16 +1,20 @@
-regs = ["s0","s1","s2","s3","s4","s5","s6","s7","s8","s9","sA","sB","sC","sD","sE","sF"]
 
-function func_return(operation::String, operand1::String, operand2::String)
- if operation == 'LOAD'
-   return
- end
-end
+function load(operand1,operand2,bankA,bankB)
 
-
-
-function load(operand1, operand2,regs)
-  if operand2 in regs
-    return bank[operand2]
+  if(operand2[1] != "s")
+    op2_type = UInt8
   else
+    op2_type = String
+  end
+  #test operand overload
+
+  if (op2_type == String)
+    source_regester_index = parse(operand2[2]) + 1
+    terminal_regester_index= parse(operand1[1]) + 1
+    bankA[terminal_regester_index] = bankB[source_regester_index]
+  else
+    source_data = parse(String("0x",operand2))
+    terminal_regester_index= parse(operand1[1]) + 1
+    bankA[terminal_regester_index] = source_data
   end
 end
