@@ -5,18 +5,27 @@ println("")
 BankA = Array{UInt8}(16)
 BankB = Array{UInt8}(16)
 
+#initial BANKs
+for i = 1:16
+	BankA[i] = 0
+	BankA[i] = 0
+end
+
 type flags
 	Z :: Int
 	C :: Int
 	IE :: Int
-	REGBANK :: Bool
+	REGBANK :: Char
 end
 
-flag = flags(0,0,0,true)
+flag = flags(0,0,0,'A')
 
 println("-----------KCPSM6 simulated-----------")
+if length(ARGS)  > = 1
+	FILE_NAME = ARGS[1]
+else
+	
 
-const FILE_NAME = "test.asm"
 
 #cheak file existance 
 if !isfile(FILE_NAME)
