@@ -1,12 +1,12 @@
 type label
-	label_name :: Any
-	index :: Any
+	label_name :: String
+	index :: Int
 end
 
 type instruction
-	op_code :: Any
-	operand1 :: Any
-	operand2 :: Any
+	op_code
+	operand1
+	operand2
 end
 
 label_arr = Array{label}(0)
