@@ -150,3 +150,27 @@ end
 
 #Arithmetic Functions
 # add
+
+
+#Scratch Pad Memory
+# store
+function store(operand1, operand2, BankA, BankB, reg_bank, scratch)
+  if (reg_bank =='A')
+    main_bank = bank_a
+    sub_bank = bank_b
+  else
+    main_bank = bank_b
+    sub_bank = bank_a
+  end
+
+  value_index = parse(operand1[2]) + 1
+  value = main_bank[value_index]
+  if length(operand2) == 2
+    if operand2[1] == 's'
+      target_index = parse(opernad2[2]) + 1
+    else
+
+  else
+
+  scratch[target_index] = value
+end

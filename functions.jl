@@ -84,7 +84,7 @@ function execution(inst, labels,reg_bank)
 
   #Scratch Pad Memory
     elseif operation == "STORE"
-      store(operand1, operand2, BankA, BankB, reg_bank)
+      store(operand1, operand2, BankA, BankB, reg_bank, scratch)
     elseif operation == "FETCH"
       fetch(operand1, operand2, BankA, BankB, reg_bank)
 
