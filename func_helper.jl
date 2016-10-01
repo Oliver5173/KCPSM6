@@ -154,8 +154,8 @@ end
 
 #Scratch Pad Memory
 # store
-function store(operand1, operand2, BankA, BankB, reg_bank, scratch)
-  if (reg_bank =='A')
+function store(operand1, operand2, BankA, BankB, flag, scratch)
+  if (flag.REGBANK =='A')
     main_bank = bank_a
     sub_bank = bank_b
   else
@@ -166,11 +166,18 @@ function store(operand1, operand2, BankA, BankB, reg_bank, scratch)
   value_index = parse(operand1[2]) + 1
   value = main_bank[value_index]
   if length(operand2) == 2
-    if operand2[1] == 's'
-      target_index = parse(opernad2[2]) + 1
-    else
-
+    index = "0x" * operand2
+    target_index = dec(parse(index)) + 1
   else
+    target_index = parse(opernad2[3]) + 1
+  end
 
+  if target_index > 64
+    for i = 1:64
+      if scratch[i] == 0
+        target_index == i
+      end
+    end
+  end
   scratch[target_index] = value
 end
