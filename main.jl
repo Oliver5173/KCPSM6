@@ -1,7 +1,6 @@
 include("program_counter.jl")
 import pc
 #define banks and cpu flags
-println("")
 BankA = Array{UInt8}(16)
 BankB = Array{UInt8}(16)
 scratch = Array{UInt8}(256)
@@ -24,8 +23,11 @@ println("-----------KCPSM6 simulated-----------")
 if length(ARGS)  > = 1
 	FILE_NAME = ARGS[1]
 else
-
-
+	print("Enter the file name : ")
+	FILE_NAME = readline()
+	file_length = length(FILE_NAME)
+	FILE_NAME = FILE_NAME[1:file_length - 2]
+end
 
 #cheak file existance
 if !isfile(FILE_NAME)
