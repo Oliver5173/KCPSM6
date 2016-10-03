@@ -4,7 +4,7 @@ import pc
 println("")
 BankA = Array{UInt8}(16)
 BankB = Array{UInt8}(16)
-
+scratch = Array{UInt8}(256)
 #initial BANKs
 for i = 1:16
 	BankA[i] = 0
@@ -24,10 +24,10 @@ println("-----------KCPSM6 simulated-----------")
 if length(ARGS)  > = 1
 	FILE_NAME = ARGS[1]
 else
-	
 
 
-#cheak file existance 
+
+#cheak file existance
 if !isfile(FILE_NAME)
 	println(FILE_NAME," DOES NOT EXIST\nProgram exit in 5s")
 	sleep(4)
