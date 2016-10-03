@@ -432,6 +432,7 @@ function fetch(operand1, operand2, BankA, BankB, flag, scratch)
   else
     main_bank = bank_b
     sub_bank = bank_a
+  end
   target_index = parse(operand1[2]) + 1
   if length(operand2) == 2
     indec = "0x" * operand2
@@ -440,4 +441,35 @@ function fetch(operand1, operand2, BankA, BankB, flag, scratch)
     value_index = parsse("0x"*operand2[3]) + 1
   end
   main_bank[target_index] = scratch[value_index]
+end
+
+#Input and Output
+#----------------------------------------------------------------
+# input
+function input(operand1,operand2,bank_a,bank_b,flag)
+  if (flag.REGBANK =='A')
+    main_bank = bank_a
+    sub_bank = bank_b
+  else
+    main_bank = bank_b
+    sub_bank = bank_a
+  end
+
+  target_index = parse("0x"*operand1[2]) + 1
+  value = readline("Input from keyboard")
+  main_bank[target_index] = value[1: (length(value)-2)]
+end
+
+#Output
+function output(operand1,operand2,bank_a,bank_b,flag)
+  if (flag.REGBANK =='A')
+    main_bank = bank_a
+    sub_bank = bank_b
+  else
+    main_bank = bank_b
+    sub_bank = bank_a
+  end
+  target_index = parse("0x" * operand1[2])+1
+  value = main_bank[target_index]
+  println("Value at register ", operand1, " is ", value)
 end
