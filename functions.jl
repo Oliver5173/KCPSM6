@@ -86,8 +86,7 @@ function execution(inst, labels,flag)
     elseif operation == "STORE"
       store(operand1, operand2, BankA, BankB, flag, scratch)
     elseif operation == "FETCH"
-      fetch(operand1, operand2, BankA, BankB, flag)
-
+      fetch(operand1, operand2, BankA, BankB, flag, scratch)
     end
   end
 end

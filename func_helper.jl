@@ -975,7 +975,8 @@ function input(operand1,operand2,bank_a,bank_b,flag)
   end
 
   target_index = parse("0x"*operand1[2]) + 1
-  value = readline("Input from keyboard")
+  println("Input from keyboard")
+  value = readline()
   main_bank[target_index] = value[1: (length(value)-2)]
 end
 
