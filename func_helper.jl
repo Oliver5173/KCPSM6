@@ -993,3 +993,13 @@ function output(operand1,operand2,bank_a,bank_b,flag)
   value = main_bank[target_index]
   println("Value at register ", operand1, " is ", value)
 end
+
+
+#jump
+function jump(operand, labels)
+  for label in labels
+    if label.label_name == operand
+      return label.index
+    end
+  end
+end
