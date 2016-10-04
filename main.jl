@@ -20,7 +20,7 @@ end
 flag = flags(0,0,0,'A')
 
 println("-----------KCPSM6 simulated-----------")
-if length(ARGS)  > = 1
+if length(ARGS)  >= 1
 	FILE_NAME = ARGS[1]
 else
 	print("Enter the file name : ")
