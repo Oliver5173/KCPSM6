@@ -1002,4 +1002,31 @@ function jump(operand, labels)
       return label.index
     end
   end
+  return -1
+end
+
+function jump2(operand1, operand2, BankA, BankB, flag, labels)
+  if (flag.REGBANK =='A')
+    main_bank = bank_a
+    sub_bank = bank_b
+  else
+    main_bank = bank_b
+    sub_bank = bank_a
+  end
+
+  first_index = parse("0x" * operand1[3]) + 1
+  second_index = parse("0x" * operand2[2]) + 1
+  first_value = main_bank[first_index]
+  second_value = main_bank[second_index]
+  return 0
+end
+
+
+function call(operand, labels)
+  for label in labels
+    if label.label_name == operand
+      return label.index
+    end
+  end
+  return -1
 end

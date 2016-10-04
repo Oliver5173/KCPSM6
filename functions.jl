@@ -16,31 +16,70 @@ function execution(inst, labels,flag)
   #Jump
     elseif operation == "JUMP"
       count_jump = count_jump + 1
+
+      if opernad2 != ""
+          if operand1 == "Z"
+            if flag.Z != NaN
+              i = jump(opernad2, labels)
+            end
+          elseif operand1 == "NZ"
+            if flag.Z == NaN
+              i = jump(operand2, labels)
+            end
+          elseif operand1 == "C"
+            if flag.C != NaN
+              i = jump(operand2, labels)
+            end
+          elseif operand1 == "NC"
+            if flag.C == NaN
+              i = jump(operand2, labels)
+            end
+          end
+      else
+          i = jump(operand1, labels)
+      end
+
+      if i == -1
+        println("Label not found...")
+        println("Exit in 5 second")
+        sleep(4)
+        exit()
+    elseif operatoin == "JUMP@"
+      count_jump = coutn_jump + 1
+      i = jump2(operand1, operand2, BankA, BankB, flag, labels)
+
+    elseif operation == "CALL"
+      count_jump = 0
       if opernad2 != ""
         if operand1 == "Z"
           if flag.Z != NaN
-            i = jump(opernad2, labels)
+            i = call(opernad2, labels)
           end
         elseif operand1 == "NZ"
           if flag.Z == NaN
-            i = jump(operand2, labels)
+            i = call(operand2, labels)
           end
         elseif operand1 == "C"
           if flag.C != NaN
-            i = jump(operand2, labels)
+            i = call(operand2, labels)
           end
         elseif operand1 == "NC"
           if flag.C == NaN
-            i = jump(operand2, labels)
+            i = call(operand2, labels)
           end
         end
       else
-        i = jump(operand1, labels)
+        i = call(operand1, labels)
+      end
+
+      if i == -1
+        println("Label not found...")
+        println("Exit in 5 second")
+        sleep(4)
+        exit()
   #Version Control
     else
       count_jump = 0
-      if operation == "HWBUILD"
-        hwbuild(operand1, operand2, BankA, BankB, flag)
       #Register Loading
       elseif operation == "LOAD"
         load(operand1, operand2, BankA, BankB, flag)
@@ -105,6 +144,7 @@ function execution(inst, labels,flag)
       elseif operation == "FETCH"
         fetch(operand1, operand2, BankA, BankB, flag, scratch)
       end
+
     end
       i = i + 1
   end
