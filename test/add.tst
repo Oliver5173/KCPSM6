@@ -7,3 +7,4 @@ ADDCY s2, 00
 JUMP NC, loop
 OUTPUT s0, 00
 death: JUMP death
+JUMP@ (s4, s5)
