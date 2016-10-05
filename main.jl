@@ -1,7 +1,7 @@
 include("program_counter.jl")
 include("read_assemble.jl")
 #include("functions.jl")
-import pc
+import pc,trans
 #define banks and cpu flags
 BankA = Array{UInt8}(16)
 BankB = Array{UInt8}(16)
@@ -9,7 +9,7 @@ scratch = Array{UInt8}(256)
 #initial BANKs
 for i = 1:16
 	BankA[i] = 0
-	BankA[i] = 0
+	BankB[i] = 0
 end
 
 type flags
@@ -21,7 +21,7 @@ end
 
 flag = flags(0,0,0,'A')
 
-println("-----------KCPSM6 simulated-----------")
+println("-----------Welcome to KCPSM6-----------")
 if length(ARGS)  >= 1
 	FILE_NAME = ARGS[1]
 else
@@ -38,7 +38,7 @@ if !isfile(FILE_NAME)
 	exit()
 end
 
-println("Reading Assembly Code ... ...")
+#Reading Assembly Code
 
 #loading file to code_arr
 f = open(FILE_NAME)
@@ -49,8 +49,10 @@ for i = 1:length_of_line
   push!(code_arr,readline(f))
 end
 close(f)
-println("Converting code... ...")
+#Converting code
 
 labels, instructions = trans.load_code(length(code_arr), code_arr)
+
+println("Code loaded ! ")
 
 #execution(instructions, labels, flag)
