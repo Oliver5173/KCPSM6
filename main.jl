@@ -22,7 +22,8 @@ end
 
 flag = flags(0,0,0,'A')
 
-println("-----------Welcome to KCPSM6-----------")
+print_brand()
+
 if length(ARGS)  >= 1
 	FILE_NAME = ARGS[1]
 else
