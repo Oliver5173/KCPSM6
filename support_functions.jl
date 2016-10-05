@@ -1,11 +1,13 @@
 function output_reg(bank,flags)
   println("Z = ",flags.Z,"  C = ",flags.C,"  IE = ", flags.IE,"  REGBANK = ", flags.REGBANK)
-  for i = [1,2]
-    for j = 1:8
-      print("s",uppercase(hex(i*j-1))," = ",bank[i*j],"  ")
-    end
-    println()
+  for j = 1:8
+    print("s",uppercase(hex(j-1))," = 0x",hex(bank[j]),"  ")
   end
+  println()
+  for j = 1:8
+    print("s",uppercase(hex(j+7))," = 0x",hex(bank[j+8]),"  ")
+  end
+  println()
 end
 
 function print_brand()
