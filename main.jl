@@ -1,6 +1,6 @@
 include("program_counter.jl")
 include("read_assemble.jl")
-include("control_reg.jl")
+include("support_functions.jl")
 #include("functions.jl")
 import pc,trans
 #define banks and cpu flags
