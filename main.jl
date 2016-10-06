@@ -55,9 +55,22 @@ close(f)
 labels, instructions = trans.load_code(length(code_arr), code_arr)
 
 println("Code loaded ! ")
-
-cmd_excution("d[3:6]",code_arr,BankA,flag)
+println("Enter esc to exit")
+while true
+	print("command > ")
+	cmd = readline()
+	cmd = cmd[1:length(cmd) - 2]
+	if cmd == "esc"
+		break
+	end
+	if flag.REGBANK == 'A'
+		cmd_excution(cmd,code_arr,BankA,flag)
+	else
+		cmd_excution(cmd,code_arr,BankB,flag)
+	end
+end
 
 #end of the code, delete workspace
 workspace()
+exit()
 
