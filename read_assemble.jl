@@ -18,11 +18,11 @@ module trans
 	  	j=1
 	  	ith_line=code_arr[i]
 
-	  	last = findfirst(ith_line, '\r')
-		if last == 0
+	  	last = findfirst(ith_line, '\r')-1
+		if last == -1
 			last = length(ith_line)
 		end
-		
+			
 	  	k = findfirst(ith_line, ':')
 	  	if k != 0
 
@@ -39,7 +39,7 @@ module trans
 	  				temp2 = strip(ith_line[j:j+k-2])
 	  				j=j+k
 
-	  				temp3=strip(ith_line[j:last-1])
+	  				temp3=strip(ith_line[j:last])
 	  				check=temp3[end-1:end]
 	  				if check=="'d"
 							temp3=hex(parse(temp3[1:end-2]))
@@ -50,11 +50,11 @@ module trans
 
 	  				push!(instruction_arr,instruction(temp1, temp2, temp3))
 	  			else
-						temp2 = strip(ith_line[j:last-1])
+						temp2 = strip(ith_line[j:last])
 	  				push!(instruction_arr,instruction(temp1, temp2, ""))
 	  			end
 	  		else
-	  			push!(instruction_arr,instruction(ith_line[j:last-1], "", ""))
+	  			push!(instruction_arr,instruction(ith_line[j:last], "", ""))
 	  		end
 
 	  	else
@@ -69,7 +69,7 @@ module trans
 	  				temp2 = strip(ith_line[j:j+k-2])
 	  				j=j+k
 
-	  				temp3=strip(ith_line[j:last-1])
+	  				temp3=strip(ith_line[j:last])
 	  				check=temp3[end-1:end]
 
 	  				if check=="'d"
@@ -81,11 +81,11 @@ module trans
 
 	  				push!(instruction_arr,instruction(temp1, temp2,temp3))
 	  			else
-						temp2 = strip(ith_line[j:last-1])
+						temp2 = strip(ith_line[j:last])
 	  				push!(instruction_arr,instruction(temp1, temp2, ""))
 	  			end
 	  		else
-	  			push!(instruction_arr,instruction(ith_line[j:last-1], "", ""))
+	  			push!(instruction_arr,instruction(ith_line[j:last], "", ""))
 	  		end
 	  	end
 	  end
