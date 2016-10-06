@@ -20,41 +20,41 @@ function print_brand()
   println("                                             |")
 end
 
-function cmd_excution(cmd,code_arr)
-    if length(cmd) == 0
+function cmd_excution(cmd,code_arr,bank,flag)
+  if length(cmd) == 0
+    return
+  end
+  if cmd == "r"
+    output_reg(bank,flag)
+    return
+  elseif cmd[1] == 'd'
+      if length(cmd) == 1
+        num = 1
+        for i in code_arr
+          print(num,":\t",i)
+          num += 1
+        end
         return
-    end
-    if cmd == "r"
-        output_reg()
-        return
-    elseif cmd[1] == 'd'
-        if length(cmd) == 1
-            num = 1
-            for i in code_arr
-            println(num,":\t",i)
-            num += 1
-            end
+      elseif cmd[2] == '[' && cmd[length(cmd)] == ']'
+        if length(cmd) <= 3
+          println("command does not exist")
+          return
+        end
+        cmd = cmd[3:length(cmd) - 1]
+        if findfirst(cmd,':') == 0
+          if length(code_arr) < parse(cmd)
+            println("Only has ",length(code_arr)," line(s)")
             return
-        elseif cmd[2] == '[' && cmd[length(cmd)] == ']'
-            if length(cmd) <= 3
-                println("command does not exist")
-            end
-            cmd = cmd[3:length(cmd) - 1]
-            if findfirst(cmd,':') == 0
-                if length(code_arr) < parse(cmd)
-                    println("Only has ",length(code_arr)," line(s)")
-                    return
-                end
-                print(parse(cmd),":\t",code_arr[parse(cmd)])
-            else
-                code_line = split(cmd,':')
-                for i = parse(code_line[1]) : parse(code_line[2])
-                    println(i,":\t",code_arr[i])
-                end
-            end
+          end
+          print(parse(cmd),":\t",code_arr[parse(cmd)])
+        else
+          code_line = split(cmd,':')
+          for i = parse(code_line[1]) : parse(code_line[2])
+            print(i,":\t",code_arr[i])
+          end
+        end
+      end
     else
         println("command does not exist")
     end
-  end
-            
-
+end
