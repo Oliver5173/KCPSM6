@@ -50,6 +50,7 @@ for i = 1:length_of_line
   push!(code_arr,readline(f))
 end
 close(f)
+code_arr[length(code_arr)] += "\r\n"
 #Converting code
 
 labels, instructions = trans.load_code(length(code_arr), code_arr)
