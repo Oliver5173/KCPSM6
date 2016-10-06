@@ -5,17 +5,17 @@ module pc
   global PC_Stack = Array{UInt8}(0)
   global PC_Stack_Level = 0;
   ##push function for call operator
-  function push(x::UInt8,Level)
+  function push(x)
     if PC_Stack_Level < 60
       push!(PC_Stack,x)
-      global PC_Stack_Level = Level + 1
+      global PC_Stack_Level += 1
     else
       println("Memory OverFlow")
     end
   end
-  function pop(Level)
-    if Level > 0
-      global PC_Stack_Level = Level - 1
+  function pop()
+    if PC_Stack_Level > 0
+      global PC_Stack_Level -= 1
       return pop!(PC_Stack)
     else
       println("Memory Underflow")
