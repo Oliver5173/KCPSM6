@@ -25,7 +25,10 @@ function load(operand1,operand2,bank_a,bank_b,flag)
     source_regester_index = parse("0x" * operand2[2:2]) + 1
     terminal_regester_index= parse("0x" * operand1[2:2]) + 1
     main_bank[terminal_regester_index] = main_bank[source_regester_index]
+    println("Loading value from ", operand2, " to ", operand1)
+    println("\tValue of operand2 is ", main_bank[source_regester_index])
   else
+    println("Loading ", operand2, " to ", operand1)
     source_data = parse("0x"*operand2)
     terminal_regester_index= parse("0x"*operand1[2:2]) + 1
     main_bank[terminal_regester_index] = source_data
@@ -55,7 +58,10 @@ function star(operand1, operand2, bank_a, bank_b, flag)
     source_regester_index = parse("0x" * operand2[2:2]) + 1
     terminal_regester_index= parse("0x" * operand1[2:2]) + 1
     sub_bank[terminal_regester_index] = main_bank[source_regester_index]
+    println("Staring value from ", operand2, " to ", operand1)
+    println("\tValue of operand2 is ", main_bank[source_regester_index])
   else
+    println("Staring ", operand2, " to ", operand1)
     source_data = parse("0x"*operand2)
     terminal_regester_index= parse("0x"*operand1[2:2]) + 1
     sub_bank[terminal_regester_index] = source_data
@@ -82,16 +88,20 @@ function and(operand1, operand2, bank_a, bank_b, flag)
     op2_type = AbstractString
   end
 
+  println("Performing AND operation on ", operand1, " and ", operand2)
+  println("\toperand1 has value", main_bank[target_index])
   # perform AND operation
   target_index = parse("0x" * operand1[2:2]) + 1
   if (op2_type == UInt8)
     sourse_data = parse("0x" * operand2)
+    println("\toperand2 has value ", source_data)
     main_bank[target_index] = main_bank[target_index] & source_data
   else
     op2_index = parse("0x" * operand2[2:2]) + 1
+    println("\toperand2 has value ", main_bank[op2_index])
     main_bank[target_index] = (main_bank[target_index] & main_bank[op2_index])
   end
-
+  println("\tresult saved in ", operand1, " with value ", main_bank[target_index])
   #set zero flag
   if (main_bank[target_index] == 0)
     flag.Z = 1

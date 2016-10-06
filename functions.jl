@@ -1,8 +1,9 @@
 include("func_helper.jl")
-
+include("program_counter.jl")
 function execution(inst, labels,flag)
   i = 1
   count_jump = 0
+  count_call = 0
    while true
     operand1 = inst[i].operand1
     operand2 = inst[i].operand2
@@ -46,11 +47,13 @@ function execution(inst, labels,flag)
         sleep(4)
         return
 	    end
-    elseif operatoin == "JUMP@"
+    elseif operation == "JUMP@"
       count_jump = coutn_jump + 1
       i = jump2(operand1, operand2, BankA, BankB, flag, labels)
     elseif operation == "CALL"
+      j = i
       count_jump = 0
+      count_call += 1
       if opernad2 != ""
         if operand1 == "Z"
           if flag.Z != NaN
@@ -71,14 +74,19 @@ function execution(inst, labels,flag)
         end
       else
         i = call(operand1, labels)
+        i = i + 1
       end
 
       if i == -1
         println("Label not found...")
-        println("Exit in 5 second")
-        sleep(4)
-        return
+        println("returning to previous instrucion")
+        i = j
+      else
+        pc.push(j)
 	    end
+    elseif operation == "RETURN"
+      count_call -= 1
+      i = pc.pop()
     #Version Control
     else
       count_jump = 0
@@ -86,7 +94,7 @@ function execution(inst, labels,flag)
       if operation == "LOAD"
         load(operand1, operand2, BankA, BankB, flag)
       elseif operation == "star"
-        continue
+        star(operand1, operand2, Bank_a, Bank_b, flag)
       #Logical
       elseif operation == "AND"
         and(operand1, operand2, BankA, BankB, flag)
@@ -98,7 +106,9 @@ function execution(inst, labels,flag)
       elseif operation == "ADD"
         add(operand1, operand2, BankA, BankB, flag)
       elseif operation == "ADDCY"
+        println(flag)
         addcy(operand1, operand2, BankA, BankB, flag)
+        println(flag)
       elseif operation == "SUB"
         sub(operand1, operand2, BankA, BankB, flag)
       elseif operation == "SUBCY"
@@ -146,14 +156,20 @@ function execution(inst, labels,flag)
       elseif operation == "FETCH"
         fetch(operand1, operand2, BankA, BankB, flag, scratch)
       end
-	    i =  + 1
+	    i =  i + 1
     end
 
-	if count_jump >= 10
-	  println("Maximum number of jump instruction exceeded")
-	  println("Prese enter to exit.")
-	  readline()
-	  return
-	end
+  	if count_jump >= 10
+  	  println("Maximum number of jump instruction exceeded")
+  	  println("Prese enter to return to main.")
+  	  readline()
+  	  return
+  	end
+    if count_call >= 30
+      println("Maximum number of call instruction exceeded")
+      println("Aborting all instructions")
+      println("Press enter to return to main")
+      readline()
+    end
   end
 end
