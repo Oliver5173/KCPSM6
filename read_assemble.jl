@@ -1,6 +1,6 @@
 module trans
 	type label
-		label_name :: AbstractString
+		label_name
 		index :: Int
 	end
 

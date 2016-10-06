@@ -7,17 +7,18 @@ function execution(inst, labels,flag)
     operand1 = inst[i].operand1
     operand2 = inst[i].operand2
     operation = inst[i].op_code
-  #Register Bank Selection
+
+    #Register Bank Selection
     if operation =="REGBANK"
       count_jump = 0
       if !((flag && operand1 == "A") || (!flag && operand1 == "B"))
         flag.REGBANK = !flag.REGBANK
       end
-  #Jump
+	    i = i + 1
+    #Jump
     elseif operation == "JUMP"
       count_jump = count_jump + 1
-
-      if opernad2 != ""
+      if operand2 != ""
           if operand1 == "Z"
             if flag.Z != NaN
               i = jump(opernad2, labels)
@@ -43,11 +44,11 @@ function execution(inst, labels,flag)
         println("Label not found...")
         println("Exit in 5 second")
         sleep(4)
-        exit()
+        return
+	    end
     elseif operatoin == "JUMP@"
       count_jump = coutn_jump + 1
       i = jump2(operand1, operand2, BankA, BankB, flag, labels)
-
     elseif operation == "CALL"
       count_jump = 0
       if opernad2 != ""
@@ -76,12 +77,13 @@ function execution(inst, labels,flag)
         println("Label not found...")
         println("Exit in 5 second")
         sleep(4)
-        exit()
-  #Version Control
+        return
+	    end
+    #Version Control
     else
       count_jump = 0
       #Register Loading
-      elseif operation == "LOAD"
+      if operation == "LOAD"
         load(operand1, operand2, BankA, BankB, flag)
       elseif operation == "star"
         continue
@@ -144,8 +146,14 @@ function execution(inst, labels,flag)
       elseif operation == "FETCH"
         fetch(operand1, operand2, BankA, BankB, flag, scratch)
       end
-
+	    i =  + 1
     end
-      i = i + 1
+
+	if count_jump >= 10
+	  println("Maximum number of jump instruction exceeded")
+	  println("Prese enter to exit.")
+	  readline()
+	  return
+	end
   end
 end

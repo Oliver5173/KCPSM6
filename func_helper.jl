@@ -17,11 +17,11 @@ function load(operand1,operand2,bank_a,bank_b,flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   #make change in register
-  if (op2_type == String)
+  if (op2_type == AbstractString)
     source_regester_index = parse("0x" * operand2[2:2]) + 1
     terminal_regester_index= parse("0x" * operand1[2:2]) + 1
     main_bank[terminal_regester_index] = main_bank[source_regester_index]
@@ -47,11 +47,11 @@ function star(operand1, operand2, bank_a, bank_b, flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   #make change in register
-  if (op2_type == String)
+  if (op2_type == AbstractString)
     source_regester_index = parse("0x" * operand2[2:2]) + 1
     terminal_regester_index= parse("0x" * operand1[2:2]) + 1
     sub_bank[terminal_regester_index] = main_bank[source_regester_index]
@@ -79,7 +79,7 @@ function and(operand1, operand2, bank_a, bank_b, flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   # perform AND operation
@@ -116,7 +116,7 @@ function or(operand1, operand2, bank_a, bank_b, flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   # perform OR operation
@@ -153,7 +153,7 @@ function xor(operand1, operand2, bank_a, bank_b, flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   # perform XOR operation
@@ -192,7 +192,7 @@ function add(operand1,operand2,bank_a,bank_b,flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   #get target data
@@ -242,7 +242,7 @@ function addcy(operand1,operand2,bank_a,bank_b,flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   #get target data
@@ -292,7 +292,7 @@ function sub(operand1,operand2,bank_a,bank_b,flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   #get target data
@@ -342,7 +342,7 @@ function subcy(operand1,operand2,bank_a,bank_b,flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   #get target data
@@ -394,7 +394,7 @@ function test(operand1,operand2,bank_a,bank_b,flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   #get target data
@@ -447,7 +447,7 @@ function testcy(operand1,operand2,bank_a,bank_b,flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   #get target data
@@ -500,7 +500,7 @@ function compare(operand1,operand2,bank_a,bank_b,flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   #get target data
@@ -547,7 +547,7 @@ function comparecy(operand1,operand2,bank_a,bank_b,flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = String
+    op2_type = AbstractString
   end
 
   #get target data
@@ -931,7 +931,7 @@ function store(operand1, operand2, BankA, BankB, flag, scratch)
   else
     main_bank = bank_b
     sub_bank = bank_a
-
+  end
 
   value_index = parse("0x"*operand1[2]) + 1
   value = main_bank[value_index]
@@ -952,6 +952,7 @@ function fetch(operand1, operand2, BankA, BankB, flag, scratch)
   else
     main_bank = bank_b
     sub_bank = bank_a
+  end
   target_index = parse(operand1[2]) + 1
   if length(operand2) == 2
     indec = "0x" * operand2

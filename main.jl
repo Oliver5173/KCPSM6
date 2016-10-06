@@ -1,7 +1,7 @@
 include("program_counter.jl")
 include("read_assemble.jl")
 include("support_functions.jl")
-#include("functions.jl")
+include("functions.jl")
 import pc,trans
 #define banks and cpu flags
 BankA = Array{UInt8}(16)
@@ -46,7 +46,7 @@ end
 f = open(FILE_NAME)
 length_of_line = length(readlines(f))
 f = open(FILE_NAME)
-code_arr = Array{String}(0)
+code_arr = Array{Any}(0)
 for i = 1:length_of_line
   push!(code_arr,readline(f))
 end
@@ -57,4 +57,4 @@ labels, instructions = trans.load_code(length(code_arr), code_arr)
 
 println("Code loaded ! ")
 
-#execution(instructions, labels, flag)
+execution(instructions, labels, flag)
