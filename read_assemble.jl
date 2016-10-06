@@ -19,6 +19,10 @@ module trans
 	  	ith_line=code_arr[i]
 
 	  	last = findfirst(ith_line, '\r')
+		if last == 0
+			last = length(ith_line)
+		end
+		
 	  	k = findfirst(ith_line, ':')
 	  	if k != 0
 
