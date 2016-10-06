@@ -5,32 +5,40 @@ module pc
   global PC_Stack = Array{UInt8}(0)
   global PC_Stack_Level = 0;
   ##push function for call operator
-  function push(x)
+  function push()
     if PC_Stack_Level < 60
-      push!(PC_Stack,x)
-      global PC_Stack_Level += 1
+      if offset_address < 255
+        push!(PC_Stack,base_address)
+        push!(PC_Stack,offset_address + 1)
+      else
+        push!(PC_Stack,base_address + 1)
+        push!(PC_Stack,UInt8(0))
+      end
+      global PC_Stack_Level += 2
     else
       println("Memory OverFlow")
     end
   end
   function pop()
     if PC_Stack_Level > 0
-      global PC_Stack_Level -= 1
-      return pop!(PC_Stack)
+      global PC_Stack_Level -= 2
+      global offset_address =  pop!(PC_Stack)
+      global base_address =  pop!(PC_Stack)
     else
       println("Memory Underflow")
     end
   end
   #isempty --> isempty(Array);
+  #for jump@
   function address_calculator(sX::UInt8,sY::UInt8)
-    global base_address = sY
+    global offset_address = sY
     if sX  < 16
-      global offset_address = sX
+      global base_address = sX
     else
-      global offset_address = UInt8(offset_calc(sX))
+      global base_address = UInt8(base_calc(sX))
     end
   end
-  function offset_calc(sX::UInt8)
+  function base_calc(sX::UInt8)
     temp = sX
     num = [128,64,32,16]
     for i = 1 : 4
@@ -39,5 +47,13 @@ module pc
       end
     end
     return UInt8(temp)
+  end
+  function pc_increase()
+    if offset_address < 255
+      global offset_address += 1
+    else
+      global offset_address = 0
+      global base_address += 1
+    end
   end
 end
