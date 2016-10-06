@@ -16,6 +16,6 @@ function print_brand()
   println(" | ' /| |     | |__) || (___  | \\  / | / /_  |    KCPSM6")
   println(" |  < | |     |  ___/  \\___ \\ | |\\/| || '_ \\ | Commands: ")
   println(" | . \\| |____ | |      ____) || |  | || (_) || r : shows registers value")
-  println(" |_|\\_\\\\_____||_|     |_____/ |_|  |_| \\___/ | d : shows code ie.d[i] or d[i:j]")
+  println(" |_|\\_\\\\_____||_|     |_____/ |_|  |_| \\___/ | d : shows code ie.d,d[i],d[i:j]")
   println("                                             |")
 end
