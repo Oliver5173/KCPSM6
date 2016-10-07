@@ -1,7 +1,7 @@
-include("program_counter.jl")
 include("read_assemble.jl")
 include("support_functions.jl")
-import pc,trans
+include("functions.jl")
+import trans
 #define banks and cpu flags
 BankA = Array{UInt8}(16)
 BankB = Array{UInt8}(16)
