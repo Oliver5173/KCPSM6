@@ -544,7 +544,7 @@ function compare(operand1,operand2,bank_a,bank_b,flag)
   else
     op2_type = AbstractString
   end
-  println("Performing COMPARE operation on ", operand1 , " and ", oeprand2)
+  println("Performing COMPARE operation on ", operand1 , " and ", operand2)
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
@@ -565,17 +565,19 @@ function compare(operand1,operand2,bank_a,bank_b,flag)
   #set zero flag
   if (temp == 0)
     flag.Z = 1
-  else
-    flag.Z =0
   end
   println("\tZero flag is now ", flag.Z)
   #set carry flag
   if (target_data< source_data)
     flag.C = 1
-  else
-    flag.C = 0
+  end
+
+  if ( target_data > source_data)
+    flag.C= 0
+    flag.Z =0
   end
   println("\tCarry flag is now ", flag.C)
+  println("\tZero flag is now ", flag.Z)
 end
 
 #comparecy
@@ -617,16 +619,18 @@ function comparecy(operand1,operand2,bank_a,bank_b,flag)
   #set zero flag
   if (temp == 0 && flag.Z == 1)
     flag.Z = 1
-  else
-    flag.Z =0
   end
-  println("\tZero flag is now ", flag.Z)
+
   #set carry flag
   if (target_data< (source_data +1))
     flag.C = 1
-  else
-    flag.C = 0
   end
+
+  if (target_data > (source_data + 1))
+    flag.C =0
+    flag.Z =0
+  end
+  println("\tZero flag is now ", flag.Z)
   println("\tCarry flag is now ", flag.C)
 end
 
@@ -651,7 +655,7 @@ function sl0(operand1,bank_a,bank_b,flag)
   #set carry flag
   flag.C = Int((target_data & 0x80) >> 7)
   #operate shift
-  temp = (target_data << 1 ) & 0xF7
+  temp = (target_data << 1 )
   #set zero flag
   if (temp == 0 )
     flag.Z = 1
@@ -756,7 +760,7 @@ function sla(operand1,bank_a,bank_b,flag)
   target_data = main_bank[target_index]
   println("\toperand1 has value ", target_data)
   #operate shift
-  temp = (target_data << 1 ) & 0xF7
+  temp = target_data << 1
 
 
   if (flag.C == 1)
@@ -781,7 +785,7 @@ function sla(operand1,bank_a,bank_b,flag)
 end
 
 #rl
-function sl(operand1,bank_a,bank_b,flag)
+function rl(operand1,bank_a,bank_b,flag)
   #register banks
   if (flag.REGBANK =='A')
     main_bank = bank_a
@@ -797,7 +801,7 @@ function sl(operand1,bank_a,bank_b,flag)
   target_data = main_bank[target_index]
   println("\toperand1 has value ", target_data)
   #operate shift
-  temp = (target_data << 1 ) & 0xF7
+  temp = target_data << 1
 
   #set carry flag
   flag.C = Int((target_data & 0x80) >> 7)
@@ -906,7 +910,7 @@ function srx(operand1,bank_a,bank_b,flag)
   flag.C = Int((target_data & 0x01))
 
   #get LSB
-  MSB = Int( target_data & 0x80)
+  MSB = Int( (target_data & 0x80) >> 7)
   #operate shift
   temp = (target_data >> 1 ) & 0x7F
   if (MSB == 1)
@@ -946,7 +950,7 @@ function sra(operand1,bank_a,bank_b,flag)
   println("\toperand1 has value ", target_data)
 
   #operate shift
-  temp = (target_data >> 1 ) & 0x7F
+  temp = target_data >> 1
 
 
   if (flag.C == 1)
