@@ -5,6 +5,9 @@ function execution(inst, labels,flag)
   count_call = 0
    while true
     i = pc.base_address*256 + pc.offset_address + 1
+    if i> length(inst)
+      return
+    end
     operand1 = inst[i].operand1
     operand2 = inst[i].operand2
     operation = inst[i].op_code
@@ -25,7 +28,7 @@ function execution(inst, labels,flag)
       if operand2 != ""
           if operand1 == "Z"
             if flag.Z != NaN
-              i = jump(opernad2, labels)
+              i = jump(2, labels)
             end
           elseif operand1 == "NZ"
             if flag.Z == NaN
@@ -57,7 +60,7 @@ function execution(inst, labels,flag)
       j = i
       count_jump = 0
       count_call += 1
-      if opernad2 != ""
+      if operand2 != ""
         if operand1 == "Z"
           if flag.Z != NaN
             i = call1(opernad2, labels)
