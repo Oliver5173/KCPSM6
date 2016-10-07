@@ -15,8 +15,10 @@ function execution(inst, labels,flag)
     #Register Bank Selection
     if operation =="REGBANK"
       count_jump = 0
-      if !((operand1 == "A") || (operand1 == "B"))
-        flag.REGBANK = !flag.REGBANK
+      if operand1 == 'A'
+        flag.REGBANK = 'A'
+      else
+        flag.REGBANK = 'B'
       end
       pc.pc_increase()
 	elseif operation == "HWBUILD"
@@ -167,14 +169,14 @@ function execution(inst, labels,flag)
 
   	if count_jump >= 10
   	  println("Maximum number of jump instruction exceeded")
-  	  println("Prese enter to return to main.")
+  	  print("Prese enter to return to main.")
   	  readline()
   	  return
   	end
     if count_call >= 30
       println("Maximum number of call instruction exceeded")
       println("Aborting all instructions")
-      println("Press enter to return to main")
+      print("Press enter to return to main")
       readline()
     end
   end
