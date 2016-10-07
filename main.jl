@@ -64,11 +64,7 @@ while true
 	if cmd == "esc"
 		break
 	end
-	if flag.REGBANK == 'A'
-		cmd_excution(cmd,code_arr,BankA,flag)
-	else
-		cmd_excution(cmd,code_arr,BankB,flag)
-	end
+	cmd_excution(cmd,code_arr,BankA,BankB,flag)
 end
 
 #end of the code, delete workspace
