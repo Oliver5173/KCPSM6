@@ -54,8 +54,8 @@ code_arr[length(code_arr)] *= "\r\n"
 #Converting code
 
 labels, instructions = trans.load_code(length(code_arr), code_arr)
-execution(instructions, labels, flag)
 println("Code loaded ! ")
+execution(instructions, labels, flag)
 println("Enter esc to exit")
 while true
 	print("command > ")
