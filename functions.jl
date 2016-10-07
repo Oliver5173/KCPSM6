@@ -1,10 +1,11 @@
 include("func_helper.jl")
 include("program_counter.jl")
 function execution(inst, labels,flag)
-  i = 1
+  i = pc.base_address*256 + pc.offset_address
   count_jump = 0
   count_call = 0
    while true
+    i = pc.base_address*256 + pc.offset_address
     operand1 = inst[i].operand1
     operand2 = inst[i].operand2
     operation = inst[i].op_code
@@ -15,7 +16,7 @@ function execution(inst, labels,flag)
       if !((flag && operand1 == "A") || (!flag && operand1 == "B"))
         flag.REGBANK = !flag.REGBANK
       end
-	    i = i + 1
+      pc.pc_increase()
     #Jump
     elseif operation == "JUMP"
       count_jump = count_jump + 1
@@ -82,7 +83,7 @@ function execution(inst, labels,flag)
         println("returning to previous instrucion")
         i = j
       else
-        pc.push(j)
+        pc.push()
 	    end
     elseif operation == "RETURN"
       count_call -= 1
@@ -156,7 +157,7 @@ function execution(inst, labels,flag)
       elseif operation == "FETCH"
         fetch(operand1, operand2, BankA, BankB, flag, scratch)
       end
-	    i =  i + 1
+      pc.pc_increase()
     end
 
   	if count_jump >= 10
