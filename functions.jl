@@ -1,8 +1,6 @@
 include("func_helper.jl")
 include("program_counter.jl")
 function execution(inst, labels,flag)
-  HWBUILD::UInt8
-  HWBUILD = 0x00
   count_jump = 0
   count_call = 0
    while true
@@ -19,7 +17,8 @@ function execution(inst, labels,flag)
       end
       pc.pc_increase()
 	elseif operation == "HWBUILD"
-	  HWBUILD(operand1, BankA, BankB, flag, HWBUILD)
+	  HWBUILD(operand1, BankA, BankB, flag)
+	  pc.pc_increase()
     #Jump
     elseif operation == "JUMP"
       count_jump = count_jump + 1

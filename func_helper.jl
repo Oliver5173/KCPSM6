@@ -1131,7 +1131,7 @@ function call1(operand, labels)
   return -1
 end
 
-function HWBUILD(operand1, BankA, BankB, flag, HWBUILD)
+function HWBUILD(operand1, bank_a, bank_b, flag)
   if (flag.REGBANK =='A')
     main_bank = bank_a
     sub_bank = bank_b
@@ -1141,14 +1141,12 @@ function HWBUILD(operand1, BankA, BankB, flag, HWBUILD)
   end
   println("Performing HWBUILD on ", operand1)
   target_index = parse("0x" * operand1[2:2]) + 1
-  
+  main_bank[target_index] = 0x00
   println("\tsave ", HWBUILD, " to ", operand1)
   println("\tmodifying flags...")
   flag.C = 1
-  
-  if HWBUILD == 0x00
-	flag.Z = 0
-  end
+  flag.Z = 0
+
   println("\tZero flag is now ", flag.Z)
   println("\tCarry flag is now ", flag.C)
 end
