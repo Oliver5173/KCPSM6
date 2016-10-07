@@ -37,20 +37,29 @@ module trans
 	  			k=findfirst(ith_line[j:last], ',')
 	  			if k != 0
 	  				temp2 = strip(ith_line[j:j+k-2])
+					if temp2[1] == 's' || temp2[1] == 'S'
+						temp2=lcfirst(uppercase(temp2))
+					end
 	  				j=j+k
 
 	  				temp3=strip(ith_line[j:last])
 	  				check=temp3[end-1:end]
+					if temp3[1] == 's' || temp3[1] == 'S'
+						temp3=lcfirst(uppercase(temp3))
+					end
 	  				if check=="'d"
-							temp3=hex(parse(temp3[1:end-2]))
+						temp3=hex(parse(temp3[1:end-2]))
 
-	    			elseif (check=="'b")
-								temp3=hex(parse("0b"*temp3[1:end-2]))
-    				end
+	    				elseif (check=="'b")
+						temp3=hex(parse("0b"*temp3[1:end-2]))
+    					end
 
 	  				push!(instruction_arr,instruction(temp1, temp2, temp3))
 	  			else
-						temp2 = strip(ith_line[j:last])
+					temp2 = strip(ith_line[j:last])
+					if temp2[1] == 's' || temp2[1] == 'S'
+						temp2=lcfirst(uppercase(temp2))
+					end
 	  				push!(instruction_arr,instruction(temp1, temp2, ""))
 	  			end
 	  		else
@@ -67,21 +76,30 @@ module trans
 	  			k=findfirst(ith_line[j:last], ',')
 	  			if k != 0
 	  				temp2 = strip(ith_line[j:j+k-2])
+					if temp2[1] == 's' || temp2[1] == 'S'
+						temp2=lcfirst(uppercase(temp2))
+					end
 	  				j=j+k
 
 	  				temp3=strip(ith_line[j:last])
+					if temp3[1] == 's' || temp3[1] == 'S'
+						temp3=lcfirst(uppercase(temp3))
+					end
 	  				check=temp3[end-1:end]
 
 	  				if check=="'d"
-							temp3=hex(parse(temp3[1:end-2]))
+						temp3=hex(parse(temp3[1:end-2]))
 
-	    			elseif check=="'b"
-							temp3=hex(parse("0b"*temp3[1:end-2]))
-	    			end
+	    				elseif check=="'b"
+						temp3=hex(parse("0b"*temp3[1:end-2]))
+	    				end
 
 	  				push!(instruction_arr,instruction(temp1, temp2,temp3))
 	  			else
-						temp2 = strip(ith_line[j:last])
+					temp2 = strip(ith_line[j:last])
+					if temp2[1] == 's' || temp2[1] == 'S'
+						temp2=lcfirst(uppercase(temp2))
+					end
 	  				push!(instruction_arr,instruction(temp1, temp2, ""))
 	  			end
 	  		else
