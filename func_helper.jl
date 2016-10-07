@@ -34,7 +34,6 @@ function load(operand1,operand2,bank_a,bank_b,flag)
     terminal_index= parse("0x"*operand1[2:2]) + 1
     main_bank[terminal_index] = source_data
   end
-
 end
 
 #STAR (bug fixed)
@@ -74,7 +73,6 @@ end
 #------------------------------------------------------
 #AND (bug fixed)
 function and(operand1, operand2, bank_a, bank_b, flag)
-  println("----------------------",bank_a[11],"------------",bank_a[12])
   #register banks
   if (flag.REGBANK =='A')
     main_bank = bank_a
@@ -88,7 +86,7 @@ function and(operand1, operand2, bank_a, bank_b, flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = AbstractString
+    op2_type = String
   end
   target_index = parse("0x" * operand1[2:2]) + 1
   println("Performing AND operation on ", operand1, " and ", operand2)
