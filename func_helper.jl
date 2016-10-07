@@ -1,3 +1,4 @@
+include("program_counter.jl")
 # operand: should be two strings and two banks-array and a flag type(whole flag)
 
 # Register Loading Functions
@@ -425,11 +426,11 @@ function test(operand1,operand2,bank_a,bank_b,flag)
   else
     op2_type = AbstractString
   end
-
+  println("Performing TEST operation on ", operand1, " and ", operand2)
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
   #get source data
   if (op2_type == UInt8)
     source_data = parse("0x"*operand2)
@@ -438,15 +439,18 @@ function test(operand1,operand2,bank_a,bank_b,flag)
     source_index = parse("0x"*operand2[2:2])+1
     source_data = main_bank[source_index]
   end
+  println("\toperand2 has value ", source_data)
   #do the operation
   temp = target_data & source_data
-
+  println("\tresult is ", temp)
+  println("\t modifying flags...")
   #set zero flag
   if (temp == 0)
     flag.Z = 1
   else
     flag.Z =0
   end
+  println("\tZero flag is now ", flag.Z)
   #get number of 1s in binary "temp"
   count = 0
   while(temp != 0)
@@ -459,6 +463,7 @@ function test(operand1,operand2,bank_a,bank_b,flag)
   else
     flag.C = 0
   end
+  println("\tCarry flag is now ", flag.C)
 end
 
 #testcy
@@ -478,11 +483,12 @@ function testcy(operand1,operand2,bank_a,bank_b,flag)
   else
     op2_type = AbstractString
   end
+  println("Performing TESTCY operation on ", opernad1, " and ", operand2)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
   #get source data
   if (op2_type == UInt8)
     source_data = parse("0x"*operand2)
@@ -492,14 +498,17 @@ function testcy(operand1,operand2,bank_a,bank_b,flag)
     source_data = main_bank[source_index]
   end
   #do the operation
+  println("\toperan2 has value ", source_data)
   temp = target_data & source_data
-
+  println("\tresult is ", temp)
+  println("\tmodifying flags...")
   #set zero flag
   if (temp == 0 && flag.Z == 1)
     flag.Z = 1
   else
     flag.Z =0
   end
+  println("\tZero flag is now ", flag.Z)
   #get number of 1s in binary "temp"
   count = 0
   while(temp != 0)
@@ -512,6 +521,7 @@ function testcy(operand1,operand2,bank_a,bank_b,flag)
   else
     flag.C = 0
   end
+  println("\tCarry flag is now ", flag.C)
 end
 
 #compare
@@ -531,11 +541,11 @@ function compare(operand1,operand2,bank_a,bank_b,flag)
   else
     op2_type = AbstractString
   end
-
+  println("Performing COMPARE operation on ", operand1 , " and ", oeprand2)
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
   #get source data
   if (op2_type == UInt8)
     source_data = parse("0x"*operand2)
@@ -545,20 +555,24 @@ function compare(operand1,operand2,bank_a,bank_b,flag)
     source_data = main_bank[source_index]
   end
   #do the operation
+  println("\toperand2 has value ", source_data)
   temp = target_data - source_data
-
+  println("\tresult is ", temp)
+  println("\tmodifying flags...")
   #set zero flag
   if (temp == 0)
     flag.Z = 1
   else
     flag.Z =0
   end
+  println("\tZero flag is now ", flag.Z)
   #set carry flag
   if (target_data< source_data)
     flag.C = 1
   else
     flag.C = 0
   end
+  println("\tCarry flag is now ", flag.C)
 end
 
 #comparecy
@@ -578,11 +592,11 @@ function comparecy(operand1,operand2,bank_a,bank_b,flag)
   else
     op2_type = AbstractString
   end
-
+  println("Performing COMPARECY oepration on ", opernad1, " and ", operand2)
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
   #get source data
   if (op2_type == UInt8)
     source_data = parse("0x"*operand2)
@@ -592,7 +606,10 @@ function comparecy(operand1,operand2,bank_a,bank_b,flag)
     source_data = main_bank[source_index]
   end
   #do the operation
+  println("\toperand2 has value ", source_data)
   temp = target_data - source_data -1
+  println("\treesult is ", temp)
+  println("\tmodifying flags...")
 
   #set zero flag
   if (temp == 0 && flag.Z == 1)
@@ -600,12 +617,14 @@ function comparecy(operand1,operand2,bank_a,bank_b,flag)
   else
     flag.Z =0
   end
+  println("\tZero flag is now ", flag.Z)
   #set carry flag
   if (target_data< (source_data +1))
     flag.C = 1
   else
     flag.C = 0
   end
+  println("\tCarry flag is now ", flag.C)
 end
 
 #Shift and Rotate
@@ -1048,7 +1067,7 @@ function jump2(operand1, operand2, BankA, BankB, flag, labels)
   second_index = parse("0x" * operand2[2]) + 1
   first_value = main_bank[first_index]
   second_value = main_bank[second_index]
-  return 0
+  temp = pc.address_calculator(first_value, second_value)
 end
 
 
