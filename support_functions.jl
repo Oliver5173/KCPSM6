@@ -1,11 +1,21 @@
-function output_reg(bank,flags)
+function output_reg(banka,bankb,flags)
   println("Z = ",flags.Z,"  C = ",flags.C,"  IE = ", flags.IE,"  REGBANK = ", flags.REGBANK)
+  println("BankA: ")
   for j = 1:8
-    print("s",uppercase(hex(j-1))," = 0x",hex(bank[j]),"  ")
+    print("s",uppercase(hex(j-1))," = 0x",uppercase(hex(banka[j])),"  ")
   end
   println()
   for j = 1:8
-    print("s",uppercase(hex(j+7))," = 0x",hex(bank[j+8]),"  ")
+    print("s",uppercase(hex(j+7))," = 0x",uppercase(hex(banka[j+8])),"  ")
+  end
+  println()
+  println("BankB: ")
+  for j = 1:8
+    print("s",uppercase(hex(j-1))," = 0x",uppercase(hex(bankb[j])),"  ")
+  end
+  println()
+  for j = 1:8
+    print("s",uppercase(hex(j+7))," = 0x",uppercase(hex(bankb[j+8])),"  ")
   end
   println()
 end
