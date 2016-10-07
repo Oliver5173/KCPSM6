@@ -54,7 +54,7 @@ code_arr[length(code_arr)] *= "\r\n"
 #Converting code
 
 labels, instructions = trans.load_code(length(code_arr), code_arr)
-
+execution(instructions, labels, flag)
 println("Code loaded ! ")
 println("Enter esc to exit")
 while true
@@ -64,10 +64,12 @@ while true
 	if cmd == "esc"
 		break
 	end
-		cmd_excution(cmd,code_arr,BankA,BankB,flag)
+	if flag.REGBANK == 'A'
+		cmd_excution(cmd,code_arr,BankA,flag)
+	else
+		cmd_excution(cmd,code_arr,BankB,flag)
+	end
 end
 
 #end of the code, delete workspace
 workspace()
-exit()
-
