@@ -94,7 +94,7 @@ function and(operand1, operand2, bank_a, bank_b, flag)
   # perform AND operation
 
   if (op2_type == UInt8)
-    source_data = parse("0x" * operand2)
+    sourse_data = parse("0x" * operand2)
     println("\toperand2 has value ", source_data)
     main_bank[target_index] = main_bank[target_index] & source_data
   else
