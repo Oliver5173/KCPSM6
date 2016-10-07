@@ -639,7 +639,7 @@ function sl0(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-  println("Performing SL0 operation on ", operand1, " and ", operand2)
+  println("Performing SL0 operation on ", operand1)
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
@@ -672,7 +672,7 @@ function sl1(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-  println("Performing SL1 operation on ", operand1, " and ", operand2)
+  println("Performing SL1 operation on ", operand1)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
@@ -705,7 +705,7 @@ function slx(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-  println("Performing SLX operation on ", operand1, " and ", operand2)
+  println("Performing SLX operation on ", operand1)
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
@@ -746,7 +746,7 @@ function sla(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-  println("Performing SLA operation on ", operand1, " and ", operand2)
+  println("Performing SLA operation on ", operand1)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
@@ -787,7 +787,7 @@ function sl(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-  println("Performing SL operation on ", operand1, " and ", operand2)
+  println("Performing SL operation on ", operand1)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
@@ -827,7 +827,7 @@ function sr0(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-  println("Performing SR0 operation on ", operand1, " and ", operand2)
+  println("Performing SR0 operation on ", operand1)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
@@ -860,7 +860,7 @@ function sr1(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-  println("Performing SR1 operation on ", operand1, " and ", operand2)
+  println("Performing SR1 operation on ", operand1)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
@@ -893,7 +893,7 @@ function srx(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-  println("Performing SRX operation on ", operand1, " and ", operand2)
+  println("Performing SRX operation on ", operand1)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
@@ -935,7 +935,7 @@ function sra(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-  println("Performing SRA operation on ", operand1, " and ", operand2)
+  println("Performing SRA operation on ", operand1)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
@@ -977,7 +977,7 @@ function rr(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-  println("Performing RR operation on ", operand1, " and ", operand2)
+  println("Performing RR operation on ", operand1)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
@@ -1021,7 +1021,7 @@ function store(operand1, operand2, BankA, BankB, flag, scratch)
   end
   println("Performing STORE operation")
 
-  value_index = parse("0x"*operand1[2]) + 1
+  value_index = parse("0x"*operand1[2:2]) + 1
   value = main_bank[value_index]
   println("\toperand1 has value ", value)
 
@@ -1029,7 +1029,7 @@ function store(operand1, operand2, BankA, BankB, flag, scratch)
     index = "0x" * operand2
     target_index = dec(parse(index)) + 1
   else
-    target_index = parse("0x"*opernad2[3]) + 1
+    target_index = parse("0x"*opernad2[3:3]) + 1
   end
     scratch[target_index] = value
     println("\tresult saved in scratchpad at address", target_index, " with value ", value)
@@ -1045,13 +1045,13 @@ function fetch(operand1, operand2, BankA, BankB, flag, scratch)
     sub_bank = bank_a
   end
   println("Performing FETCH operation on ", operand1, " and ", operand2)
-  target_index = parse(operand1[2]) + 1
+  target_index = parse(operand1[2:2]) + 1
   println("\Tdestination index is ", target_index)
   if length(operand2) == 2
     indec = "0x" * operand2
     value_index = dec(parse(index)) + 1
   else
-    value_index = parsse("0x"*operand2[3]) + 1
+    value_index = parsse("0x"*operand2[3:3]) + 1
   end
   println("\ttarget value is ", scratch[value_index])
   main_bank[target_index] = scratch[value_index]
@@ -1070,7 +1070,7 @@ function input(operand1,operand2,bank_a,bank_b,flag)
     sub_bank = bank_a
   end
 
-  target_index = parse("0x"*operand1[2]) + 1
+  target_index = parse("0x"*operand1[2:2]) + 1
   println("Input from keyboard")
   println("\t enter the value you want to save: ")
   value = readline()
@@ -1087,7 +1087,7 @@ function output(operand1,operand2,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-  target_index = parse("0x" * operand1[2])+1
+  target_index = parse("0x" * operand1[2:2])+1
   value = main_bank[target_index]
   println("Value at register ", operand1, " is ", value)
 end
@@ -1114,19 +1114,41 @@ function jump2(operand1, operand2, BankA, BankB, flag, labels)
     sub_bank = bank_a
   end
 
-  first_index = parse("0x" * operand1[3]) + 1
-  second_index = parse("0x" * operand2[2]) + 1
+  first_index = parse("0x" * operand1[3:3]) + 1
+  second_index = parse("0x" * operand2[2:2]) + 1
   first_value = main_bank[first_index]
   second_value = main_bank[second_index]
   pc.address_calculator(first_value, second_value)
 end
 
 
-function call(operand, labels)
+function call1(operand, labels)
   for label in labels
     if label.label_name == operand
       return label.index
     end
   end
   return -1
+end
+
+function HWBUILD(operand1, BankA, BankB, flag, HWBUILD)
+  if (flag.REGBANK =='A')
+    main_bank = bank_a
+    sub_bank = bank_b
+  else
+    main_bank = bank_b
+    sub_bank = bank_a
+  end
+  println("Performing HWBUILD on ", operand1)
+  target_index = parse("0x" * operand1[2:2]) + 1
+  
+  println("\tsave ", HWBUILD, " to ", operand1)
+  println("\tmodifying flags...")
+  flag.C = 1
+  
+  if HWBUILD == 0x00
+	flag.Z = 0
+  end
+  println("\tZero flag is now ", flag.Z)
+  println("\tCarry flag is now ", flag.C)
 end

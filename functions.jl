@@ -1,11 +1,12 @@
 include("func_helper.jl")
 include("program_counter.jl")
 function execution(inst, labels,flag)
-  i = pc.base_address*256 + pc.offset_address
+  HWBUILD::UInt8
+  HWBUILD = 0x00
   count_jump = 0
   count_call = 0
    while true
-    i = pc.base_address*256 + pc.offset_address
+    i = pc.base_address*256 + pc.offset_address + 1
     operand1 = inst[i].operand1
     operand2 = inst[i].operand2
     operation = inst[i].op_code
@@ -13,10 +14,12 @@ function execution(inst, labels,flag)
     #Register Bank Selection
     if operation =="REGBANK"
       count_jump = 0
-      if !((flag && operand1 == "A") || (!flag && operand1 == "B"))
+      if !((operand1 == "A") || (operand1 == "B"))
         flag.REGBANK = !flag.REGBANK
       end
       pc.pc_increase()
+	elseif operation == "HWBUILD"
+	  HWBUILD(operand1, BankA, BankB, flag, HWBUILD)
     #Jump
     elseif operation == "JUMP"
       count_jump = count_jump + 1
@@ -58,23 +61,23 @@ function execution(inst, labels,flag)
       if opernad2 != ""
         if operand1 == "Z"
           if flag.Z != NaN
-            i = call(opernad2, labels)
+            i = call1(opernad2, labels)
           end
         elseif operand1 == "NZ"
           if flag.Z == NaN
-            i = call(operand2, labels)
+            i = call1(operand2, labels)
           end
         elseif operand1 == "C"
           if flag.C != NaN
-            i = call(operand2, labels)
+            i = call1(operand2, labels)
           end
         elseif operand1 == "NC"
           if flag.C == NaN
-            i = call(operand2, labels)
+            i = call1(operand2, labels)
           end
         end
       else
-        i = call(operand1, labels)
+        i = call1(operand1, labels)
         i = i + 1
       end
 
