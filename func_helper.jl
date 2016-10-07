@@ -639,10 +639,11 @@ function sl0(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-
+  println("Performing SL0 operation on ", operand1, " and ", operand2)
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
+  println("\toperand1 has value ", target_data)
 
   #set carry flag
   flag.C = Int((target_data & 0x80) >> 7)
@@ -656,6 +657,9 @@ function sl0(operand1,bank_a,bank_b,flag)
   end
 
   main_bank[target_index] = temp
+  println("\tresult saved in ", operand1, " with value ", temp)
+  println("\tZero flag is now ", flag.Z)
+  println("\tCarry flag is now ", flag.C)
 end
 
 #sl1
@@ -668,11 +672,12 @@ function sl1(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
+  println("Performing SL1 operation on ", operand1, " and ", operand2)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
   #set carry flag
   flag.C = Int((target_data & 0x80) >> 7)
   #operate shift
@@ -685,6 +690,9 @@ function sl1(operand1,bank_a,bank_b,flag)
   end
 
   main_bank[target_index] = temp
+  println("\tresult saved in ", operand1, " with value ", temp)
+  println("\tZero flag is now ", flag.Z)
+  println("\tCarry flag is now ", flag.C)
 end
 
 #slx
@@ -697,11 +705,11 @@ function slx(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
-
+  println("Performing SLX operation on ", operand1, " and ", operand2)
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
   #set carry flag
   flag.C = Int((target_data & 0x80) >> 7)
 
@@ -723,6 +731,9 @@ function slx(operand1,bank_a,bank_b,flag)
   end
 
   main_bank[target_index] = temp
+  println("\tresult saved in ", operand1, " with value ", temp)
+  println("\tZero flag is now ", flag.Z)
+  println("\tCarry flag is now ", flag.C)
 end
 
 #sla
@@ -735,11 +746,12 @@ function sla(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
+  println("Performing SLA operation on ", operand1, " and ", operand2)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
   #operate shift
   temp = (target_data << 1 ) & 0xF7
 
@@ -760,6 +772,9 @@ function sla(operand1,bank_a,bank_b,flag)
   end
 
   main_bank[target_index] = temp
+  println("\tresult saved in ", operand1, " with value ", temp)
+  println("\tZero flag is now ", flag.Z)
+  println("\tCarry flag is now ", flag.C)
 end
 
 #rl
@@ -772,11 +787,12 @@ function sl(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
+  println("Performing SL operation on ", operand1, " and ", operand2)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
   #operate shift
   temp = (target_data << 1 ) & 0xF7
 
@@ -796,6 +812,9 @@ function sl(operand1,bank_a,bank_b,flag)
   end
 
   main_bank[target_index] = temp
+  println("\tresult saved in ", operand1, " with value ", temp)
+  println("\tZero flag is now ", flag.Z)
+  println("\tCarry flag is now ", flag.C)
 end
 
 #sr0
@@ -808,11 +827,12 @@ function sr0(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
+  println("Performing SR0 operation on ", operand1, " and ", operand2)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
   #set carry flag
   flag.C = Int((target_data & 0x01))
   #operate shift
@@ -825,6 +845,9 @@ function sr0(operand1,bank_a,bank_b,flag)
   end
 
   main_bank[target_index] = temp
+  println("\tresult saved in ", operand1, " with value ", temp)
+  println("\tZero flag is now ", flag.Z)
+  println("\tCarry flag is now ", flag.C)
 end
 
 #sr1
@@ -837,11 +860,12 @@ function sr1(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
+  println("Performing SR1 operation on ", operand1, " and ", operand2)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
   #set carry flag
   flag.C = Int((target_data & 0x01))
   #operate shift
@@ -854,6 +878,9 @@ function sr1(operand1,bank_a,bank_b,flag)
   end
 
   main_bank[target_index] = temp
+  println("\tresult saved in ", operand1, " with value ", temp)
+  println("\tZero flag is now ", flag.Z)
+  println("\tCarry flag is now ", flag.C)
 end
 
 #srx
@@ -866,11 +893,12 @@ function srx(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
+  println("Performing SRX operation on ", operand1, " and ", operand2)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
   #set carry flag
   flag.C = Int((target_data & 0x01))
 
@@ -892,6 +920,9 @@ function srx(operand1,bank_a,bank_b,flag)
   end
 
   main_bank[target_index] = temp
+  println("\tresult saved in ", operand1, " with value ", temp)
+  println("\tZero flag is now ", flag.Z)
+  println("\tCarry flag is now ", flag.C)
 end
 
 #sra
@@ -904,11 +935,12 @@ function sra(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
+  println("Performing SRA operation on ", operand1, " and ", operand2)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
 
   #operate shift
   temp = (target_data >> 1 ) & 0x7F
@@ -930,6 +962,9 @@ function sra(operand1,bank_a,bank_b,flag)
     flag.Z =0
   end
   main_bank[target_index] = temp
+  println("\tresult saved in ", operand1, " with value ", temp)
+  println("\tZero flag is now ", flag.Z)
+  println("\tCarry flag is now ", flag.C)
 end
 
 #rr
@@ -942,11 +977,12 @@ function rr(operand1,bank_a,bank_b,flag)
     main_bank = bank_b
     sub_bank = bank_a
   end
+  println("Performing RR operation on ", operand1, " and ", operand2)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-
+  println("\toperand1 has value ", target_data)
 
   #operate shift
   temp = (target_data >> 1 ) & 0x7F
@@ -966,6 +1002,9 @@ function rr(operand1,bank_a,bank_b,flag)
     flag.Z =0
   end
   main_bank[target_index] = temp
+  println("\tresult saved in ", operand1, " with value ", temp)
+  println("\tZero flag is now ", flag.Z)
+  println("\tCarry flag is now ", flag.C)
 end
 
 #Scratch Pad Memory
@@ -980,9 +1019,12 @@ function store(operand1, operand2, BankA, BankB, flag, scratch)
     main_bank = bank_b
     sub_bank = bank_a
   end
+  println("Performing STORE operation")
 
   value_index = parse("0x"*operand1[2]) + 1
   value = main_bank[value_index]
+  println("\toperand1 has value ", value)
+
   if length(operand2) == 2
     index = "0x" * operand2
     target_index = dec(parse(index)) + 1
@@ -990,6 +1032,7 @@ function store(operand1, operand2, BankA, BankB, flag, scratch)
     target_index = parse("0x"*opernad2[3]) + 1
   end
     scratch[target_index] = value
+    println("\tresult saved in scratchpad at address", target_index, " with value ", value)
 end
 
 #fetch
@@ -1001,14 +1044,18 @@ function fetch(operand1, operand2, BankA, BankB, flag, scratch)
     main_bank = bank_b
     sub_bank = bank_a
   end
+  println("Performing FETCH operation on ", operand1, " and ", operand2)
   target_index = parse(operand1[2]) + 1
+  println("\Tdestination index is ", target_index)
   if length(operand2) == 2
     indec = "0x" * operand2
     value_index = dec(parse(index)) + 1
   else
     value_index = parsse("0x"*operand2[3]) + 1
   end
+  println("\ttarget value is ", scratch[value_index])
   main_bank[target_index] = scratch[value_index]
+  println("\tsave ", scratch[value_index], " to ", operand1)
 end
 
 #Input and Output
@@ -1025,8 +1072,10 @@ function input(operand1,operand2,bank_a,bank_b,flag)
 
   target_index = parse("0x"*operand1[2]) + 1
   println("Input from keyboard")
+  println("\t enter the value you want to save: ")
   value = readline()
   main_bank[target_index] = value[1: (length(value)-2)]
+  println("\t", value, " saved to ", operand1)
 end
 
 #Output
@@ -1046,6 +1095,7 @@ end
 
 #jump
 function jump(operand, labels)
+  println("Performing Jump operation")
   for label in labels
     if label.label_name == operand
       return label.index
@@ -1055,6 +1105,7 @@ function jump(operand, labels)
 end
 
 function jump2(operand1, operand2, BankA, BankB, flag, labels)
+  println("Performing JUMP@ operation")
   if (flag.REGBANK =='A')
     main_bank = bank_a
     sub_bank = bank_b
@@ -1067,7 +1118,7 @@ function jump2(operand1, operand2, BankA, BankB, flag, labels)
   second_index = parse("0x" * operand2[2]) + 1
   first_value = main_bank[first_index]
   second_value = main_bank[second_index]
-  temp = pc.address_calculator(first_value, second_value)
+  pc.address_calculator(first_value, second_value)
 end
 
 
