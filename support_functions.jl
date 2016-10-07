@@ -30,12 +30,12 @@ function print_brand()
   println("                                             |")
 end
 
-function cmd_excution(cmd,code_arr,bank,flag)
+function cmd_excution(cmd,code_arr,banka,bankb,flag)
   if length(cmd) == 0
     return
   end
   if cmd == "r"
-    output_reg(bank,flag)
+    output_reg(banka,bankb,flag)
     return
   elseif cmd[1] == 'd'
       if length(cmd) == 1
