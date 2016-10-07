@@ -1,4 +1,3 @@
-include("program_counter.jl")
 # operand: should be two strings and two banks-array and a flag type(whole flag)
 
 # Register Loading Functions
@@ -48,25 +47,26 @@ function star(operand1, operand2, bank_a, bank_b, flag)
   end
 
   #test operand overload
-  if (operand2[1] != 's')
-    op2_type = UInt8
+  if operand2[1] == 's'
+    op2_type = true
   else
-    op2_type = AbstractString
+    op2_type = false
   end
-
-  #make change in register
-  if (op2_type == AbstractString)
+  
+  println("Performing STAR operation on ", operand1, " and ", operand2)
+  terminal_regester_index= parse("0x"*operand1[2:2]) + 1
+  println("\ttarget register is ", operand1)
+  
+  if op2_type
     source_regester_index = parse("0x" * operand2[2:2]) + 1
-    terminal_regester_index= parse("0x" * operand1[2:2]) + 1
-    sub_bank[terminal_regester_index] = main_bank[source_regester_index]
-    println("Staring value from ", operand2, " to ", operand1)
-    println("\tValue of operand2 is ", main_bank[source_regester_index])
+    source_data = main_bank[source_regester_index]
   else
-    println("Staring ", operand2, " to ", operand1)
     source_data = parse("0x"*operand2)
-    terminal_regester_index= parse("0x"*operand1[2:2]) + 1
-    sub_bank[terminal_regester_index] = source_data
   end
+  
+  println("\tValue of operand2 is ", source_data, "\'d")
+  println("\tstaring ", operand2, " to ", operand1)
+  sub_bank[terminal_regester_index] = source_data
 end
 
 #Logical Functions
