@@ -376,7 +376,7 @@ function subcy(operand1,operand2,bank_a,bank_b,flag)
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
-  println("\toperand1 has value ", target_value)
+  println("\toperand1 has value ", target_data)
   #get source data
   if (op2_type == UInt8)
     source_data = parse("0x"*operand2)
@@ -396,7 +396,7 @@ function subcy(operand1,operand2,bank_a,bank_b,flag)
     flag.Z =0
   end
   #set carry flag
-  if (target_data < (source_data + falg.C))
+  if (target_data < (source_data + flag.C))
     flag.C = 1
   else
     flag.C = 0
@@ -562,14 +562,14 @@ function compare(operand1,operand2,bank_a,bank_b,flag)
   #set zero flag
   if (temp == 0)
     flag.Z = 1
-  else
+  elseif temp > 0
     flag.Z =0
   end
   println("\tZero flag is now ", flag.Z)
   #set carry flag
-  if (target_data< source_data)
+  if (temp < 0)
     flag.C = 1
-  else
+  elseif temp > 0
     flag.C = 0
   end
   println("\tCarry flag is now ", flag.C)
@@ -607,22 +607,22 @@ function comparecy(operand1,operand2,bank_a,bank_b,flag)
   end
   #do the operation
   println("\toperand2 has value ", source_data)
-  temp = target_data - source_data -1
+  if flag.C == 0
+    C = 0x00
+  elseif flag.C == 1
+    C = 0x01
+  temp = target_data - source_data - C
   println("\treesult is ", temp)
   println("\tmodifying flags...")
 
   #set zero flag
   if (temp == 0 && flag.Z == 1)
     flag.Z = 1
-  else
-    flag.Z =0
   end
   println("\tZero flag is now ", flag.Z)
   #set carry flag
-  if (target_data< (source_data +1))
+  if (temp < 0)
     flag.C = 1
-  else
-    flag.C = 0
   end
   println("\tCarry flag is now ", flag.C)
 end
