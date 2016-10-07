@@ -18,22 +18,23 @@ function load(operand1,operand2,bank_a,bank_b,flag)
   if (operand2[1] != 's')
     op2_type = UInt8
   else
-    op2_type = AbstractString
+    op2_type = String
   end
 
   #make change in register
-  if (op2_type == AbstractString)
-    source_regester_index = parse("0x" * operand2[2:2]) + 1
-    terminal_regester_index= parse("0x" * operand1[2:2]) + 1
-    main_bank[terminal_regester_index] = main_bank[source_regester_index]
+  if (op2_type == String)
+    source_index = parse("0x" * operand2[2:2]) + 1
+    terminal_index= parse("0x" * operand1[2:2]) + 1
+    main_bank[terminal_index] = main_bank[source_index]
     println("Loading value from ", operand2, " to ", operand1)
-    println("\tValue of operand2 is ", main_bank[source_regester_index])
+    println("\tValue of operand2 is ", main_bank[source_index])
   else
     println("Loading ", operand2, " to ", operand1)
     source_data = parse("0x"*operand2)
-    terminal_regester_index= parse("0x"*operand1[2:2]) + 1
-    main_bank[terminal_regester_index] = source_data
+    terminal_index= parse("0x"*operand1[2:2]) + 1
+    main_bank[terminal_index] = source_data
   end
+
 end
 
 #STAR (bug fixed)
@@ -73,6 +74,7 @@ end
 #------------------------------------------------------
 #AND (bug fixed)
 function and(operand1, operand2, bank_a, bank_b, flag)
+  println("----------------------",bank_a[11],"------------",bank_a[12])
   #register banks
   if (flag.REGBANK =='A')
     main_bank = bank_a
@@ -90,17 +92,18 @@ function and(operand1, operand2, bank_a, bank_b, flag)
   end
   target_index = parse("0x" * operand1[2:2]) + 1
   println("Performing AND operation on ", operand1, " and ", operand2)
-  println("\toperand1 has value", main_bank[target_index])
+
+  println("\toperand1 has value ", main_bank[target_index])
   # perform AND operation
 
   if (op2_type == UInt8)
-    sourse_data = parse("0x" * operand2)
+    source_data = parse("0x" * operand2)
     println("\toperand2 has value ", source_data)
-    main_bank[target_index] = main_bank[target_index] & source_data
+    main_bank[target_index] = UInt8(main_bank[target_index]) & UInt8( source_data)
   else
     op2_index = parse("0x" * operand2[2:2]) + 1
     println("\toperand2 has value ", main_bank[op2_index])
-    main_bank[target_index] = (main_bank[target_index] & main_bank[op2_index])
+    main_bank[target_index] = main_bank[target_index] & main_bank[op2_index]
   end
   println("\tresult saved in ", operand1, " with value ", main_bank[target_index])
   #set zero flag
@@ -130,8 +133,8 @@ function or(operand1, operand2, bank_a, bank_b, flag)
     op2_type = AbstractString
   end
   target_index = parse("0x"*operand1[2:2]) + 1
-  println("Performing OR operation on ", operand1, " and ", operation2)
-  printLn("\toperand1 has value", main_bank[target_index])
+  println("Performing OR operation on ", operand1, " and ", operand2)
+  println("\toperand1 has value ", main_bank[target_index])
   # perform OR operation
 
   if (op2_type == UInt8)
@@ -228,7 +231,7 @@ function add(operand1,operand2,bank_a,bank_b,flag)
   end
   #do the operation
   println("\toperand2 has value ", source_data)
-  temp = target_data + source_data
+  temp = UInt8(target_data) + UInt8(source_data)
 
   #set zero flag
   if (temp == 0)
@@ -269,7 +272,7 @@ function addcy(operand1,operand2,bank_a,bank_b,flag)
   #get target data
   println("Performing ADDCY operation on ", operand1, " and ", operand2)
   target_index = parse("0x"*operand1[2:2]) + 1
-  target_data = main_bank[target_index]
+  target_data = UInt8(main_bank[target_index])
   println("\toperand1 has value ", target_data)
   #get source data
   if (op2_type == UInt8)
@@ -277,11 +280,11 @@ function addcy(operand1,operand2,bank_a,bank_b,flag)
 
   else
     source_index = parse("0x"*operand2[2:2])+1
-    source_data = main_bank[source_index]
+    source_data = UInt8(main_bank[source_index])
   end
   #do the operation
   println("\toperand2 has value ", source_data)
-  temp = target_data + source_data + flag.C
+  temp = (target_data + source_data + flag.C)%256
 
   #set zero flag
   if (temp == 0)
@@ -297,8 +300,9 @@ function addcy(operand1,operand2,bank_a,bank_b,flag)
   end
 
   #store data
-  main_bank[target_index] = temp
   println("\tresult saved in ", operand1, " with value ", temp)
+  main_bank[target_index] = temp
+
 end
 
 #sub (bug fixed)
@@ -335,7 +339,7 @@ function sub(operand1,operand2,bank_a,bank_b,flag)
   end
   #do the operation
   println("\toperand2 has value ", source_data)
-  temp = target_data - source_data
+  temp = ((target_data - source_data)+256)%256
 
   #set zero flag
   if (temp == 0)
@@ -387,22 +391,23 @@ function subcy(operand1,operand2,bank_a,bank_b,flag)
   end
   #do the operation
   println("\toperand2 has value ", source_data)
-  temp = target_data - source_data - flag.C
+  temp =target_data - source_data - flag.C
 
   #set zero flag
-  if (temp == 0)
+  if (temp == 0 && flag.Z == 1)
     flag.Z = 1
   else
     flag.Z =0
   end
   #set carry flag
-  if (target_data < (source_data + flag.C))
+  if (temp < 0)
     flag.C = 1
   else
     flag.C = 0
   end
 
   #store data
+  temp =( temp + 256 )%256
   main_bank[target_index] = temp
   println("\tresult saved in ", operand1, " with value ", temp)
 end
@@ -483,7 +488,7 @@ function testcy(operand1,operand2,bank_a,bank_b,flag)
   else
     op2_type = AbstractString
   end
-  println("Performing TESTCY operation on ", opernad1, " and ", operand2)
+  println("Performing TESTCY operation on ", operand1, " and ", operand2)
 
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
@@ -562,14 +567,14 @@ function compare(operand1,operand2,bank_a,bank_b,flag)
   #set zero flag
   if (temp == 0)
     flag.Z = 1
-  elseif temp > 0
+  else
     flag.Z =0
   end
   println("\tZero flag is now ", flag.Z)
   #set carry flag
-  if (temp < 0)
+  if (target_data< source_data)
     flag.C = 1
-  elseif temp > 0
+  else
     flag.C = 0
   end
   println("\tCarry flag is now ", flag.C)
@@ -592,7 +597,7 @@ function comparecy(operand1,operand2,bank_a,bank_b,flag)
   else
     op2_type = AbstractString
   end
-  println("Performing COMPARECY oepration on ", opernad1, " and ", operand2)
+  println("Performing COMPARECY oepration on ", operand1, " and ", operand2)
   #get target data
   target_index = parse("0x"*operand1[2:2]) + 1
   target_data = main_bank[target_index]
@@ -607,22 +612,22 @@ function comparecy(operand1,operand2,bank_a,bank_b,flag)
   end
   #do the operation
   println("\toperand2 has value ", source_data)
-  if flag.C == 0
-    C = 0x00
-  elseif flag.C == 1
-    C = 0x01
-  temp = target_data - source_data - C
+  temp = target_data - source_data -1
   println("\treesult is ", temp)
   println("\tmodifying flags...")
 
   #set zero flag
   if (temp == 0 && flag.Z == 1)
     flag.Z = 1
+  else
+    flag.Z =0
   end
   println("\tZero flag is now ", flag.Z)
   #set carry flag
-  if (temp < 0)
+  if (target_data< (source_data +1))
     flag.C = 1
+  else
+    flag.C = 0
   end
   println("\tCarry flag is now ", flag.C)
 end
@@ -1029,7 +1034,7 @@ function store(operand1, operand2, BankA, BankB, flag, scratch)
     index = "0x" * operand2
     target_index = dec(parse(index)) + 1
   else
-    target_index = parse("0x"*opernad2[3:3]) + 1
+    target_index = parse("0x"*operand2[3:3]) + 1
   end
     scratch[target_index] = value
     println("\tresult saved in scratchpad at address", target_index, " with value ", value)
