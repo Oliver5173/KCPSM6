@@ -19,10 +19,10 @@ module trans
 	  	ith_line=code_arr[i]
 
 	  	last = findfirst(ith_line, '\r')-1
-		if last == -1
-			last = length(ith_line)
-		end
-			
+			if last == -1
+				last = length(ith_line)
+			end
+
 	  	k = findfirst(ith_line, ':')
 	  	if k != 0
 
@@ -37,37 +37,40 @@ module trans
 	  			k=findfirst(ith_line[j:last], ',')
 	  			if k != 0
 	  				temp2 = strip(ith_line[j:j+k-2])
-					if temp2[1] == 's' || temp2[1] == 'S'
-						temp2=lcfirst(uppercase(temp2))
-					end
+						if temp2[1] == 's' || temp2[1] == 'S'
+							temp2=lcfirst(uppercase(temp2))
+						end
 	  				j=j+k
 
 	  				temp3=strip(ith_line[j:last])
-	  				check=temp3[end-1:end]
-					if temp3[1] == 's' || temp3[1] == 'S'
-						temp3=lcfirst(uppercase(temp3))
-					end
-	  				if check=="'d"
-						temp3=hex(parse(temp3[1:end-2]))
+						if temp3[1] == 's' || temp3[1] == 'S'
+							temp3=lcfirst(uppercase(temp3))
+						end
+						if length(temp3) < 2
+							temp3="0"*temp3
+						end
 
-	    				elseif (check=="'b")
-						temp3=hex(parse("0b"*temp3[1:end-2]))
-    					end
+	  				check=temp3[end-1:end]
+	  				if check=="'d"
+							temp3=hex(parse(temp3[1:end-2]))
+
+	    			elseif (check=="'b")
+							temp3=hex(parse("0b"*temp3[1:end-2]))
+    				end
 
 	  				push!(instruction_arr,instruction(temp1, temp2, temp3))
 	  			else
-					temp2 = strip(ith_line[j:last])
-					if temp2[1] == 's' || temp2[1] == 'S'
-						temp2=lcfirst(uppercase(temp2))
-					end
-	  				push!(instruction_arr,instruction(temp1, temp2, ""))
+						temp2 = strip(ith_line[j:last])
+						if temp2[1] == 's' || temp2[1] == 'S'
+							temp2=lcfirst(uppercase(temp2))
+						end
+	  			push!(instruction_arr,instruction(temp1, temp2, ""))
 	  			end
 	  		else
 	  			push!(instruction_arr,instruction(ith_line[j:last], "", ""))
 	  		end
 
 	  	else
-
 	  		k=findfirst(ith_line[j:last] , ' ')
 	  		if k != 0
 	  			temp1 = ith_line[j:k-1]
@@ -76,23 +79,26 @@ module trans
 	  			k=findfirst(ith_line[j:last], ',')
 	  			if k != 0
 	  				temp2 = strip(ith_line[j:j+k-2])
-					if temp2[1] == 's' || temp2[1] == 'S'
-						temp2=lcfirst(uppercase(temp2))
-					end
+						if temp2[1] == 's' || temp2[1] == 'S'
+							temp2=lcfirst(uppercase(temp2))
+						end
 	  				j=j+k
 
 	  				temp3=strip(ith_line[j:last])
-					if temp3[1] == 's' || temp3[1] == 'S'
-						temp3=lcfirst(uppercase(temp3))
-					end
+						if temp3[1] == 's' || temp3[1] == 'S'
+							temp3=lcfirst(uppercase(temp3))
+						end
+
+						if length(temp3) < 2
+							temp3="0"*temp3
+						end
 	  				check=temp3[end-1:end]
-
 	  				if check=="'d"
-						temp3=hex(parse(temp3[1:end-2]))
+							temp3=hex(parse(temp3[1:end-2]))
 
-	    				elseif check=="'b"
-						temp3=hex(parse("0b"*temp3[1:end-2]))
-	    				end
+	    			elseif (check=="'b")
+							temp3=hex(parse("0b"*temp3[1:end-2]))
+    				end
 
 	  				push!(instruction_arr,instruction(temp1, temp2,temp3))
 	  			else
