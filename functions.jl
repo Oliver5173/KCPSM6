@@ -152,9 +152,7 @@ function execution(inst, labels,flag)
       elseif operation == "ADD"
         add(operand1, operand2, BankA, BankB, flag)
       elseif operation == "ADDCY"
-        println(flag)
         addcy(operand1, operand2, BankA, BankB, flag)
-        println(flag)
       elseif operation == "SUB"
         sub(operand1, operand2, BankA, BankB, flag)
       elseif operation == "SUBCY"
