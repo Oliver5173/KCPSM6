@@ -203,12 +203,17 @@ function execution(inst, labels,flag)
       pc.pc_increase()
     end
 
-  	if count_jump >= 10
-  	  println("Maximum number of jump instruction exceeded")
-  	  print("Prese enter to return to main.")
-  	  readline()
-  	  return
-  	end
+    if i > pc.offset_address + pc.base_address * 256 + 1
+      println("Code execution complete, press enter to return to main")
+      readline()
+      return
+    end
+    if count_jump >= 10
+      println("Maximum number of jump instruction exceeded")
+      print("Prese enter to return to main.")
+      readline()
+      return
+    end
     if count_call >= 30
       println("Maximum number of call instruction exceeded")
       println("Aborting all instructions")
