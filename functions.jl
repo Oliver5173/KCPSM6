@@ -93,7 +93,45 @@ function execution(inst, labels,flag)
         pc.push()
 	    end
     elseif operation == "RETURN"
+      if operand1 == ""
+        count_call -= 1
+        i = pc.pop()
+      else
+        if operand1 == "C"
+          if flag.C == 1
+            count_call -= 1
+            i =pc.pop()
+          else
+            pc.pc_increase()
+          end
+
+        elseif operand1 == "Z"
+          if flag.Z == 1
+            count_call -= 1
+            i =pc.pop()
+          else
+            pc.pc_increase()
+          end
+        elseif operand1 == "NC"
+          if flag.C == 0
+            count_call -= 1
+            i =pc.pop()
+          else
+            pc.pc_increase()
+          end
+        elseif operand1 == "NZ"
+          if flag.Z == 0
+            count_call -= 1
+            i =pc.pop()
+          else
+            pc.pc_increase()
+          end
+        end
+      end
+
+    elseif operation == "LOAD&RETURN"
       count_call -= 1
+      load(operand1,operand2,bank_a,bank_b,flag)
       i = pc.pop()
     #Version Control
     else
