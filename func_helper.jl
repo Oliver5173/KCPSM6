@@ -1033,7 +1033,7 @@ function store(operand1, operand2, BankA, BankB, flag, scratch)
 
   if length(operand2) == 2
     index = "0x" * operand2
-    target_index = dec(parse(index)) + 1
+    target_index = parse(index) + 1
   else
     target_index = parse("0x"*operand2[3:3]) + 1
   end
