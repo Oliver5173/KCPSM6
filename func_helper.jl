@@ -1054,8 +1054,8 @@ function fetch(operand1, operand2, BankA, BankB, flag, scratch)
   target_index = parse(operand1[2:2]) + 1
   println("\Tdestination index is ", target_index)
   if length(operand2) == 2
-    indec = "0x" * operand2
-    value_index = dec(parse(index)) + 1
+    index = "0x" * operand2
+    value_index = parse(index) + 1
   else
     value_index = parse("0x"*operand2[3:3]) + 1
   end
