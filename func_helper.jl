@@ -68,7 +68,6 @@ function star(operand1, operand2, bank_a, bank_b, flag)
   println("\tstaring ", operand2, " to ", operand1)
   sub_bank[terminal_regester_index] = source_data
 end
-
 #Logical Functions
 #------------------------------------------------------
 #AND (bug fixed)
