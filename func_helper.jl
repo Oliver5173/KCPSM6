@@ -3,14 +3,14 @@
 # Register Loading Functions
 # -------------------------------------------------
 # LOAD (bug fixed)
-function load(operand1,operand2,bank_a,bank_b,flag)
+function load(operand1,operand2,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -36,14 +36,14 @@ function load(operand1,operand2,bank_a,bank_b,flag)
 end
 
 #STAR (bug fixed)
-function star(operand1, operand2, bank_a, bank_b, flag)
+function star(operand1, operand2, BankA, BankB, flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -52,18 +52,18 @@ function star(operand1, operand2, bank_a, bank_b, flag)
   else
     op2_type = false
   end
-  
+
   println("Performing STAR operation on ", operand1, " and ", operand2)
   terminal_regester_index= parse("0x"*operand1[2:2]) + 1
   println("\ttarget register is ", operand1)
-  
+
   if op2_type
     source_regester_index = parse("0x" * operand2[2:2]) + 1
     source_data = main_bank[source_regester_index]
   else
     source_data = parse("0x"*operand2)
   end
-  
+
   println("\tValue of operand2 is ", source_data, "\'d")
   println("\tstaring ", operand2, " to ", operand1)
   sub_bank[terminal_regester_index] = source_data
@@ -71,14 +71,14 @@ end
 #Logical Functions
 #------------------------------------------------------
 #AND (bug fixed)
-function and(operand1, operand2, bank_a, bank_b, flag)
+function and(operand1, operand2, BankA, BankB, flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -113,14 +113,14 @@ function and(operand1, operand2, bank_a, bank_b, flag)
 end
 
 #OR (bug fixed)
-function or(operand1, operand2, bank_a, bank_b, flag)
+function or(operand1, operand2, BankA, BankB, flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -154,14 +154,14 @@ function or(operand1, operand2, bank_a, bank_b, flag)
 end
 
 #XOR  (bug fixed)
-function xor(operand1, operand2, bank_a, bank_b, flag)
+function xor(operand1, operand2, BankA, BankB, flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -197,14 +197,14 @@ end
 #Arithmetic Functions
 #----------------------------------------------------------------
 # add (bug fixed)
-function add(operand1,operand2,bank_a,bank_b,flag)
+function add(operand1,operand2,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -249,14 +249,14 @@ function add(operand1,operand2,bank_a,bank_b,flag)
 end
 
 #addcy (bug fixed)
-function addcy(operand1,operand2,bank_a,bank_b,flag)
+function addcy(operand1,operand2,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -303,14 +303,14 @@ function addcy(operand1,operand2,bank_a,bank_b,flag)
 end
 
 #sub (bug fixed)
-function sub(operand1,operand2,bank_a,bank_b,flag)
+function sub(operand1,operand2,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -357,14 +357,14 @@ function sub(operand1,operand2,bank_a,bank_b,flag)
 end
 
 #subcy (bug fixed)
-function subcy(operand1,operand2,bank_a,bank_b,flag)
+function subcy(operand1,operand2,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -412,14 +412,14 @@ end
 #Test and compare
 #----------------------------------------------------------------
 #test
-function test(operand1,operand2,bank_a,bank_b,flag)
+function test(operand1,operand2,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -469,14 +469,14 @@ function test(operand1,operand2,bank_a,bank_b,flag)
 end
 
 #testcy
-function testcy(operand1,operand2,bank_a,bank_b,flag)
+function testcy(operand1,operand2,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -527,14 +527,14 @@ function testcy(operand1,operand2,bank_a,bank_b,flag)
 end
 
 #compare
-function compare(operand1,operand2,bank_a,bank_b,flag)
+function compare(operand1,operand2,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -580,14 +580,14 @@ function compare(operand1,operand2,bank_a,bank_b,flag)
 end
 
 #comparecy
-function comparecy(operand1,operand2,bank_a,bank_b,flag)
+function comparecy(operand1,operand2,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   #test operand overload
@@ -636,14 +636,14 @@ end
 #Shift and Rotate
 #----------------------------------------------------------------
 #sl0
-function sl0(operand1,bank_a,bank_b,flag)
+function sl0(operand1,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing SL0 operation on ", operand1)
   #get target data
@@ -669,14 +669,14 @@ function sl0(operand1,bank_a,bank_b,flag)
 end
 
 #sl1
-function sl1(operand1,bank_a,bank_b,flag)
+function sl1(operand1,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing SL1 operation on ", operand1)
 
@@ -702,14 +702,14 @@ function sl1(operand1,bank_a,bank_b,flag)
 end
 
 #slx
-function slx(operand1,bank_a,bank_b,flag)
+function slx(operand1,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing SLX operation on ", operand1)
   #get target data
@@ -743,14 +743,14 @@ function slx(operand1,bank_a,bank_b,flag)
 end
 
 #sla
-function sla(operand1,bank_a,bank_b,flag)
+function sla(operand1,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing SLA operation on ", operand1)
 
@@ -784,14 +784,14 @@ function sla(operand1,bank_a,bank_b,flag)
 end
 
 #rl
-function rl(operand1,bank_a,bank_b,flag)
+function rl(operand1,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing SL operation on ", operand1)
 
@@ -824,14 +824,14 @@ function rl(operand1,bank_a,bank_b,flag)
 end
 
 #sr0
-function sr0(operand1,bank_a,bank_b,flag)
+function sr0(operand1,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing SR0 operation on ", operand1)
 
@@ -857,14 +857,14 @@ function sr0(operand1,bank_a,bank_b,flag)
 end
 
 #sr1
-function sr1(operand1,bank_a,bank_b,flag)
+function sr1(operand1,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing SR1 operation on ", operand1)
 
@@ -890,14 +890,14 @@ function sr1(operand1,bank_a,bank_b,flag)
 end
 
 #srx
-function srx(operand1,bank_a,bank_b,flag)
+function srx(operand1,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing SRX operation on ", operand1)
 
@@ -932,14 +932,14 @@ function srx(operand1,bank_a,bank_b,flag)
 end
 
 #sra
-function sra(operand1,bank_a,bank_b,flag)
+function sra(operand1,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing SRA operation on ", operand1)
 
@@ -974,14 +974,14 @@ function sra(operand1,bank_a,bank_b,flag)
 end
 
 #rr
-function rr(operand1,bank_a,bank_b,flag)
+function rr(operand1,BankA,BankB,flag)
   #register banks
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing RR operation on ", operand1)
 
@@ -1019,11 +1019,11 @@ end
 
 function store(operand1, operand2, BankA, BankB, flag, scratch)
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing STORE operation")
 
@@ -1044,11 +1044,11 @@ end
 #fetch
 function fetch(operand1, operand2, BankA, BankB, flag, scratch)
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing FETCH operation on ", operand1, " and ", operand2)
   target_index = parse(operand1[2:2]) + 1
@@ -1057,7 +1057,7 @@ function fetch(operand1, operand2, BankA, BankB, flag, scratch)
     indec = "0x" * operand2
     value_index = dec(parse(index)) + 1
   else
-    value_index = parsse("0x"*operand2[3:3]) + 1
+    value_index = parse("0x"*operand2[3:3]) + 1
   end
   println("\ttarget value is ", scratch[value_index])
   main_bank[target_index] = scratch[value_index]
@@ -1067,13 +1067,13 @@ end
 #Input and Output
 #----------------------------------------------------------------
 # input
-function input(operand1,operand2,bank_a,bank_b,flag)
+function input(operand1,operand2,BankA,BankB,flag)
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   target_index = parse("0x"*operand1[2:2]) + 1
@@ -1085,13 +1085,13 @@ function input(operand1,operand2,bank_a,bank_b,flag)
 end
 
 #Output
-function output(operand1,operand2,bank_a,bank_b,flag)
+function output(operand1,operand2,BankA,BankB,flag)
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   target_index = parse("0x" * operand1[2:2])+1
   value = main_bank[target_index]
@@ -1116,11 +1116,11 @@ end
 function jump2(operand1, operand2, BankA, BankB, flag, labels)
   println("Performing JUMP@ operation")
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
 
   first_index = parse("0x" * operand1[3:3]) + 1
@@ -1140,13 +1140,13 @@ function call1(operand, labels)
   return -1
 end
 
-function HWBUILD(operand1, bank_a, bank_b, flag)
+function HWBUILD(operand1, BankA, BankB, flag)
   if (flag.REGBANK =='A')
-    main_bank = bank_a
-    sub_bank = bank_b
+    main_bank = BankA
+    sub_bank = BankB
   else
-    main_bank = bank_b
-    sub_bank = bank_a
+    main_bank = BankB
+    sub_bank = BankA
   end
   println("Performing HWBUILD on ", operand1)
   target_index = parse("0x" * operand1[2:2]) + 1
