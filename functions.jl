@@ -214,6 +214,7 @@ function execution(inst, labels,flag)
       println("Aborting all instructions")
       print("Press enter to return to main")
       readline()
+      return
     end
   end
 end
