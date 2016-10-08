@@ -193,7 +193,7 @@ function execution(inst, labels,flag)
       elseif operation == "OUTPUT"
         output(operand1, operand2, BankA, BankB, flag)
       elseif operation == "OUTPUTK"
-        outputk(operand1, operand2, BankA, BankB, flag)
+        outputk(operand1, operand2)
       #Scratch Pad Memory
       elseif operation == "STORE"
         store(operand1, operand2, BankA, BankB, flag, scratch)
