@@ -1080,7 +1080,7 @@ function input(operand1,operand2,bank_a,bank_b,flag)
   println("Input from keyboard")
   println("\t enter the value you want to save: ")
   value = readline()
-  main_bank[target_index] = value[1: (length(value)-2)]
+  main_bank[target_index] = parse("0x"*value[1: (length(value)-2)])
   println("\t", value, " saved to ", operand1)
 end
 
