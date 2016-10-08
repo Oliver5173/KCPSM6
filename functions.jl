@@ -139,7 +139,7 @@ function execution(inst, labels,flag)
       #Register Loading
       if operation == "LOAD"
         load(operand1, operand2, BankA, BankB, flag)
-      elseif operation == "star"
+      elseif operation == "STAR"
         star(operand1, operand2, Bank_a, Bank_b, flag)
       #Logical
       elseif operation == "AND"
