@@ -1098,6 +1098,9 @@ function output(operand1,operand2,bank_a,bank_b,flag)
   println("Value at register ", operand1, " is ", value)
 end
 
+function outputk(operand1,operand2)
+  println("outputk result in ", kk)
+end
 
 #jump
 function jump(operand, labels)
