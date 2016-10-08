@@ -15,7 +15,7 @@ function execution(inst, labels,flag)
     #Register Bank Selection
     if operation =="REGBANK"
       count_jump = 0
-      if operand1 == 'A'
+      if operand1 == "A"
         flag.REGBANK = 'A'
       else
         flag.REGBANK = 'B'
