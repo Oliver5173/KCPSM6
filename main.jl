@@ -56,7 +56,6 @@ code_arr[length(code_arr)] *= "\r\n"
 labels, instructions = trans.load_code(length(code_arr), code_arr)
 println("Code loaded ! ")
 execution(instructions, labels, flag)
-println("Code finished!")
 println("Enter esc to exit")
 while true
 	print("command > ")
@@ -70,3 +69,5 @@ end
 
 #end of the code, delete workspace
 workspace()
+sleep(1)
+exit()
