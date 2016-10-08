@@ -1099,7 +1099,7 @@ function output(operand1,operand2,bank_a,bank_b,flag)
 end
 
 function outputk(operand1,operand2)
-  println("outputk result in ", kk)
+  println("outputk result in ", operand1)
 end
 
 #jump
