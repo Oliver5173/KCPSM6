@@ -131,7 +131,7 @@ function execution(inst, labels,flag)
 
     elseif operation == "LOAD&RETURN"
       count_call -= 1
-      load(operand1,operand2,bank_a,bank_b,flag)
+      load(operand1, operand2, BankA, BankB, flag)
       i = pc.pop()
     #Version Control
     else
@@ -140,7 +140,7 @@ function execution(inst, labels,flag)
       if operation == "LOAD"
         load(operand1, operand2, BankA, BankB, flag)
       elseif operation == "STAR"
-        star(operand1, operand2, Bank_a, Bank_b, flag)
+        star(operand1, operand2, BankA, BankB, flag)
       #Logical
       elseif operation == "AND"
         and(operand1, operand2, BankA, BankB, flag)
