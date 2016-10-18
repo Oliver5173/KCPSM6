@@ -974,11 +974,11 @@ function output(operand1,operand2,bank_a,bank_b,flag)
   else
 	port = operand2
   end
-  println(port, value)
+  println(port, ' ', value)
 end
 
 function outputk(operand1,operand2)
-  println(operand2, operand1)
+  println(operand2, ' ', operand1)
 end
 #jump
 function jump(operand, labels)
