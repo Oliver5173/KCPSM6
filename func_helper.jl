@@ -968,11 +968,17 @@ function output(operand1,operand2,bank_a,bank_b,flag)
   end
   target_index = parse("0x" * operand1[2:2])+1
   value = main_bank[target_index]
-  println(value)
+  if operand1[1] == 's'
+	port_index = parse("0x" * operand2[2:2])+1
+	port = main_bank[port_index]
+  else
+	port = operand2
+  end
+  println(port, value)
 end
 
 function outputk(operand1,operand2)
-  println(operand1)
+  println(operand2, operand1)
 end
 #jump
 function jump(operand, labels)
