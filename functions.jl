@@ -50,8 +50,7 @@ function execution(inst, labels,flag)
       end
 
       if i == -1
-        println("Label not found...")
-        println("Exit in 5 second")
+       
         sleep(4)
         return
 	    end
@@ -86,8 +85,6 @@ function execution(inst, labels,flag)
       end
 
       if i == -1
-        println("Label not found...")
-        println("returning to previous instrucion")
         i = j
       else
         pc.push()
@@ -209,16 +206,9 @@ function execution(inst, labels,flag)
       return
     end
     if count_jump >= 10
-      println("Maximum number of jump instruction exceeded")
-      print("Prese enter to return to main.")
-      readline()
       return
     end
     if count_call >= 30
-      println("Maximum number of call instruction exceeded")
-      println("Aborting all instructions")
-      print("Press enter to return to main")
-      readline()
       return
     end
   end
