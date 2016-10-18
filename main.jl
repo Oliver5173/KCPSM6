@@ -21,7 +21,7 @@ end
 
 flag = flags(0,0,0,'A')
 
-print_brand()
+#print_brand()
 
 if length(ARGS)  >= 1
 	FILE_NAME = ARGS[1]
@@ -54,9 +54,9 @@ code_arr[length(code_arr)] *= "\r\n"
 #Converting code
 
 labels, instructions = trans.load_code(length(code_arr), code_arr)
-println("Code loaded ! ")
+#println("Code loaded ! ")
 execution(instructions, labels, flag)
-println("Enter esc to exit")
+#=println("Enter esc to exit")
 while true
 	print("command > ")
 	cmd = readline()
@@ -71,3 +71,4 @@ end
 workspace()
 sleep(1)
 exit()
+=#
