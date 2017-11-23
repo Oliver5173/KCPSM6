@@ -1,3 +1,1 @@
-# Assignment1
-cmpt276 assignment 1
-雷猴
+A simple KCPSM6 simulator
